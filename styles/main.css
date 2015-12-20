@@ -60,5 +60,11 @@ body .footer-nav div {
   text-align: center;
   padding: 10px;
 }
+.chat-bar {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  margin: -30px;
+}
 
 /*# sourceMappingURL=main.css.map */
