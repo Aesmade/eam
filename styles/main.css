@@ -60,6 +60,9 @@ body .footer-nav div {
   text-align: center;
   padding: 10px;
 }
+ol.breadcrumb {
+  background-color: transparent;
+}
 .chat-bar {
   position: absolute;
   bottom: 30px;
