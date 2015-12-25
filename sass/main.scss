@@ -1,84 +1,124 @@
 $background-color: #f6f6f6;
 $border-color: #e7e7e7;
 $box-background: #f8f8f8;
-
 body {
     background-color: $background-color !important;
-    div,
-    span {
-        font-family: 'Open Sans', Helvetica, sans-serif;
-        font-size: 17px;
+}
+
+div,
+span {
+    font-family: 'Open Sans', Helvetica, sans-serif;
+    font-size: 17px;
+}
+
+.flex-container {
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    .flex-expand {
+        flex-grow: 1;
     }
-    .flex-container {
-        display: -webkit-flex;
-        display: -moz-flex;
-        display: -ms-flex;
-        display: -o-flex;
-        display: flex;
-        .flex-expand {
-            flex-grow: 1;
-        }
+    &.space-between {
+        justify-content: space-between;
     }
-    .box {
-        border-radius: 5px;
-        padding: 30px;
-        margin-top: 30px;
-        margin-bottom: 20px;
-        border: 1px solid $border-color;
-        background-color: $box-background;
-        .box-header {
-            font-weight: bold;
-            border-bottom: 1px solid $border-color;
-            margin: -30px;
-            padding: 15px;
-            padding-left: 30px;
-            margin-bottom: 30px;
-        }
-        .box-footer {
-            border-top: 1px solid $border-color;
-            margin: -30px;
-            padding: 15px;
-            padding-left: 30px;
-            margin-top: 30px;
-        }
-    }
-    .index-search {
-        background-color: #fff;
-        padding: 20px;
-        border: 1px solid $border-color;
-        border-top: 0;
-        border-radius: 3px;
-        margin-bottom: 10px;
-        label,
-        input,
-        button {
-            margin: 15px;
-        }
-    }
-    .hor-separator {
-        width: 60%;
-    }
-    .footer-nav {
-        border: 1px solid $border-color;
-        background-color: $box-background;
-        div {
-            text-align: center;
-            padding: 10px;
-        }
-    }
-    ol.breadcrumb {
-        background-color: transparent;
-    }
-    .chat-bar {
-        position: absolute;
-        bottom: 30px;
-        width: 100%;
+}
+
+.box {
+    border-radius: 5px;
+    padding: 30px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    border: 1px solid $border-color;
+    background-color: $box-background;
+    .box-header {
+        font-weight: bold;
+        border-bottom: 1px solid $border-color;
         margin: -30px;
+        padding: 15px;
+        padding-left: 30px;
+        margin-bottom: 30px;
     }
-    .spacing-top {
-        margin-top: 25px;
+    .box-footer {
+        border-top: 1px solid $border-color;
+        margin: -30px;
+        padding: 15px;
+        padding-left: 30px;
+        margin-top: 30px;
     }
-    a[href="#"] {
-        cursor: no-drop;    
+}
+
+.index-search {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid $border-color;
+    border-top: 0;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    label,
+    input,
+    button {
+        margin: 15px;
     }
+}
+
+.hor-separator {
+    width: 60%;
+}
+
+.footer-nav {
+    border: 1px solid $border-color;
+    background-color: $box-background;
+    div {
+        text-align: center;
+        padding: 10px;
+    }
+}
+
+ol.breadcrumb {
+    background-color: transparent;
+}
+
+.chat-bar {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    margin: -30px;
+}
+
+.spacing-top {
+    margin-top: 25px;
+}
+
+.spacing-top-large {
+    margin-top: 80px;
+}
+
+.form-group.has-feedback {
+    .form-control-feedback {
+        top: 30px;
+    }
+
+    &.has-success {
+        .glyphicon-check {
+            display: block;
+        }
+        .glyphicon-remove {
+            display: none;
+        }
+    }
+
+    &.has-error {
+        .glyphicon-check {
+            display: none;
+        }
+        .glyphicon-remove {
+            display: block;
+        }
+    }
+}
+
+a[href="#"] {
+    cursor: no-drop;
 }
