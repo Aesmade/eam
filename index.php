@@ -1,86 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <link rel="stylesheet" href="styles/main.css" />
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <!-- JQuery -->
-    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <meta charset="UTF-8">
-    <title>UOA Library</title>
-</head>
-
-<body>
-    <div class="container">
-        <!-- Header start -->
-        <nav class="navbar navbar-default">
-            <div class="container">
-                <div class="navbar-header"><a href="#" class="navbar-brand">University of Athens</a></div>
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li class="dropdown">
-                            <a href="#" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Αναζήτηση<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Απλή αναζήτηση</a></li>
-                                <li><a href="#">Προχωρημένη αναζήτηση</a></li>
-                                <li><a href="#">Οδηγοί αναζήτησης</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Δανεισμός-Παραγγελία<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Κανονισμοί δανεισμού</a></li>
-                                <li><a href="#">Διαδανεισμός βιβλίου</a></li>
-                                <li><a href="#">Παραγγελία άρθρου</a></li>
-                                <li><a href="#">Νέα άρθρα</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Βιβλιοθήκες<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Λίστα βιβλιοθηκών</a></li>
-                                <li><a href="#">Χάρτης βιβλιοθηκών</a></li>
-                                <li><a href="#">Για ΑΜΕΑ</a></li>
-                                <li><a href="#">Για βιβλιοθηκονόμους</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Επικοινωνία<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Αποστολή e-mail</a></li>
-                                <li><a href="#">Ζωντανή επικοινωνία</a></li>
-                                <li><a href="#">Ανακοινώσεις</a></li>
-                                <li><a href="#">Προσωπικό</a></li>
-                                <li><a href="#">Θέσεις εργασίας</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Βοήθεια<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Συχνές ερωτήσεις</a></li>
-                                <li><a href="#">Οδηγοί χρήσης</a></li>
-                                <li><a href="#">Χάρτης σελίδας</a></li>
-                                <li><a href="#">Κανονισμός λειτουργίας</a></li>
-                                <li><a href="#">Προσβασιμότητα</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Προφίλ<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Δανεισμένα βιβλία</a></li>
-                                <li><a href="#">Ιστορικό δανεισμών</a></li>
-                                <li><a href="#">Ρυθμίσεις</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-    <!-- Header end -->
+<?php
+include 'header.php';
+?>
     <div class="container">
         <div class="box">
             <ul class="nav nav-tabs">
@@ -195,21 +115,6 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <!-- Begin footer -->
-        <div class="footer-nav flex-container">
-            <div class="flex-expand"><a href="#">Προσωπικό</a></div>
-            <div>|</div>
-            <div class="flex-expand"><a href="#">Χάρτης σελίδας</a></div>
-            <div>|</div>
-            <div class="flex-expand"><a href="#">Κανονισμός λειτουργίας</a></div>
-            <div>|</div>
-            <div class="flex-expand"><a href="#">Προσβασιμότητα</a></div>
-            <div>|</div>
-            <div class="flex-expand"><a href="#">Πανεπιστήμιο Αθηνών</a></div>
-        </div>
-        <!-- End footer -->
-    </div>
-</body>
-
-</html>
+<?php
+include 'footer.php';
+?>

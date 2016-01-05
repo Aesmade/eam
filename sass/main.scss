@@ -3,6 +3,11 @@ $border-color: #e7e7e7;
 $box-background: #f8f8f8;
 body {
     background-color: $background-color !important;
+
+    .popover {
+    width: 300px;
+    max-width: 300px;
+}
 }
 
 div,
