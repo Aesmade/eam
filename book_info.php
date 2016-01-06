@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+    include 'header.php';
 ?>
     <div class="container">
         <ol class="breadcrumb">
@@ -79,8 +79,8 @@ include 'header.php';
                                 <form role="form">
                                     <div class="modal-body">
                                         <div class="form-group has-feedback has-error">
-                                            <label for="suggest-email">Email παραλήπτη *</label>
-                                            <input type="email" name="suggest-email" id="suggest-email" class="form-control" placeholder="Email παραλήπτη">
+                                            <label for="suggest-email">E-mail παραλήπτη *</label>
+                                            <input type="email" name="suggest-email" id="suggest-email" class="form-control" placeholder="E-mail παραλήπτη">
                                             <span class="glyphicon glyphicon-check form-control-feedback"></span>
                                             <span class="glyphicon glyphicon-remove form-control-feedback"></span>
                                         </div>
@@ -156,5 +156,5 @@ include 'header.php';
         });
     </script>
 <?php
-include 'footer.php';
+    include 'footer.php';
 ?>

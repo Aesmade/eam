@@ -67,67 +67,76 @@
                                 <li><a href="#">Προσβασιμότητα</a></li>
                             </ul>
                         </li>
-                        <?php
-                        if (isset($_SESSION['user'])) {
-                        ?>
-                        <li class="dropdown">
-                            <a aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Προφίλ<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Δανεισμένα βιβλία</a></li>
-                                <li><a href="#">Ιστορικό δανεισμών</a></li>
-                                <li><a href="#">Ρυθμίσεις</a></li>
-                            </ul>
-                        </li>
-                        <?php
-                        } else {
-                        ?>
-                        <li>
-                            <a aria-haspopup="true" aria-expanded="false" data-toggle="popover" role="button" data-title="Σύνδεση" class="login-btn">Σύνδεση/Εγγραφή</a>
-                            <div class="hide">
-                                <form action="login.php" method="post" class="form-horizontal">
-                                    <div class="form-group">
-                                        <label for="name_inp" class="col-sm-4 control-label">Όνομα</label>
-                                        <div class="col-sm-8"><input type="text" name="name" id="name_inp" class="form-control" placeholder="Όνομα"></div>
+<?php
+    if (isset($_SESSION['user'])) {
+?>
+                            <li class="dropdown">
+                                <a aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Προφίλ<span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">Δανεισμένα βιβλία</a></li>
+                                    <li><a href="#">Ιστορικό δανεισμών</a></li>
+                                    <li><a href="#">Ρυθμίσεις</a></li>
+                                </ul>
+                            </li>
+<?php
+    } else {
+?>
+                                <li>
+                                    <a aria-haspopup="true" aria-expanded="false" data-toggle="popover" role="button" data-title="Σύνδεση" class="login-btn">Σύνδεση/Εγγραφή</a>
+                                    <div class="hide">
+                                        <form action="login.php" method="post" class="form-horizontal">
+                                            <div class="form-group">
+                                                <label for="name_inp" class="col-sm-4 control-label">Όνομα</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" name="name" id="name_inp" class="form-control" placeholder="Όνομα">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="pass_inp" class="col-sm-4 control-label">Κωδικός</label>
+                                                <div class="col-sm-8">
+                                                    <input type="password" name="password" id="pass_inp" class="form-control" placeholder="Κωδικός">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-4 col-sm-8">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" name="" id="">Αυτόματη σύνδεση</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-4 col-sm-8">
+                                                    <button type="submit" class="btn btn-default">Σύνδεση</button>
+                                                </div>
+                                            </div>
+                                            <div class="text-right small">
+                                                <a href="#">Ξέχασα τον κωδικό μου</a>
+                                            </div>
+                                            <hr />
+                                            <div class="text-right small">
+                                                <a href="#">Δημιουργία λογαριασμού</a>
+                                            </div>
+                                        </form>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="pass_inp" class="col-sm-4 control-label">Κωδικός</label>
-                                        <div class="col-sm-8"><input type="password" name="password" id="pass_inp" class="form-control" placeholder="Κωδικός"></div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-4 col-sm-8">
-                                            <div class="checkbox"><label><input type="checkbox" name="" id="">Αυτόματη σύνδεση</label></div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-4 col-sm-8"><button type="submit" class="btn btn-default">Σύνδεση</button></div>
-                                    </div>
-                                    <div class="text-right small">
-                                        <a href="#">Ξέχασα τον κωδικό μου</a>
-                                    </div>
-                                    <hr />
-                                    <div class="text-right small">
-                                        <a href="#">Δημιουργία λογαριασμού</a>
-                                    </div>
-                                </form>
-                            </div>
-                            <script>
-                            (function($) {
-                                $(function() {
-                                    $('.login-btn').popover({
-                                        container: 'body',
-                                        placement: 'bottom',
-                                        html: true,
-                                        content: function() {
-                                            return $(this).next().html();
-                                        }
-                                    });
-                                });
-                            })(jQuery);
-                            </script>
-                        </li>
-                        <?php
-                        }
-                        ?>
+                                    <script>
+                                    (function($) {
+                                        $(function() {
+                                            $('.login-btn').popover({
+                                                container: 'body',
+                                                placement: 'bottom',
+                                                html: true,
+                                                content: function() {
+                                                    return $(this).next().html();
+                                                }
+                                            });
+                                        });
+                                    })(jQuery);
+                                    </script>
+                                </li>
+<?php
+    }
+?>
                     </ul>
                 </div>
             </div>

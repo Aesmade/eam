@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+    include 'header.php';
 ?>
     <div class="container">
         <div class="box">
@@ -116,5 +116,5 @@ include 'header.php';
         </div>
     </div>
 <?php
-include 'footer.php';
+    include 'footer.php';
 ?>

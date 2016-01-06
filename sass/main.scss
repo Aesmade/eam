@@ -101,7 +101,7 @@ ol.breadcrumb {
 }
 
 .form-group.has-feedback {
-    .form-control-feedback {
+    .modal-body & .form-control-feedback {
         top: 30px;
     }
 

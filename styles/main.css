@@ -78,7 +78,7 @@ ol.breadcrumb {
 .spacing-top-large {
   margin-top: 80px; }
 
-.form-group.has-feedback .form-control-feedback {
+.modal-body .form-group.has-feedback .form-control-feedback {
   top: 30px; }
 .form-group.has-feedback.has-success .glyphicon-check {
   display: block; }

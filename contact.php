@@ -1,5 +1,5 @@
 <?php
-include 'header.php';
+    include 'header.php';
 ?>
     <div class="container">
         <ol class="breadcrumb">
@@ -15,7 +15,7 @@ include 'header.php';
                     <div class="form-horizontal" style="margin-top: 30px">
                         <label style="padding-top: 10px; padding-bottom: 10px;">Τα στοιχεία σας</label>
                         <div class="form-group"><label class="col-sm-3" for="nameInput">Όνομα</label><div class="col-sm-9"><input type="text" name="inputText" id="inputText" placeholder="Όνομα" class="form-control"></div></div>
-                        <div class="form-group"><label class="col-sm-3" for="nameEmail">Email</label><div class="col-sm-9"><input type="text" name="emailText" id="emailText" placeholder="Email" class="form-control"></div></div>
+                        <div class="form-group"><label class="col-sm-3" for="nameEmail">E-mail</label><div class="col-sm-9"><input type="text" name="emailText" id="emailText" placeholder="E-mail" class="form-control"></div></div>
                     </div>
                     <button type="submit" style="margin-top: 20px" class="pull-right btn btn-primary">Αποστολή ερώτησης</button>
                 </div>
@@ -45,5 +45,5 @@ include 'header.php';
         </div>
     </div>
 <?php
-include 'footer.php';
+    include 'footer.php';
 ?>
