@@ -1,3 +1,8 @@
+<?php
+    // Start a user session
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +17,23 @@
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<?php
+    if (isset($_SESSION['user']) and $_SESSION['first_time']) {
+?>
+    <script>
+    $(document).ready(function(){
+        var message = "Η εγγραφή σας ήταν επιτυχής!";
+        $('[data-toggle="tooltip"]').tooltip({title: message, trigger: 'manual'}).tooltip("show"); 
+    });
+
+    $(document).click(function(e) {
+       $('[data-toggle="tooltip"]').tooltip("destroy");
+    });
+    </script>
+<?php
+    }
+    $_SESSION['first_time'] = false;
+?>
 </head>
 
 <body>
@@ -27,7 +49,7 @@
                         <li class="dropdown">
                             <a data-toggle="dropdown" class="dropdown-toggle">Αναζήτηση</a>
                             <ul class="dropdown-menu">
-                                <li><a href="register.php">Απλή αναζήτηση</a></li>
+                                <li><a href="#">Απλή αναζήτηση</a></li>
                                 <li><a href="#">Προχωρημένη αναζήτηση</a></li>
                                 <li><a href="#">Οδηγοί αναζήτησης</a></li>
                             </ul>
@@ -75,13 +97,11 @@
 <?php
     if (isset($_SESSION['user'])) {
 ?>
-                        <li class="dropdown">
-                            <a aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Προφίλ<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Δανεισμένα βιβλία</a></li>
-                                <li><a href="#">Ιστορικό δανεισμών</a></li>
-                                <li><a href="#">Ρυθμίσεις</a></li>
-                            </ul>
+                        <li>
+                            <a  href="profile.php" data-toggle="tooltip" data-placement="bottom">Το Προφίλ μου</a>
+                        </li>
+                        <li>
+                            <a href="signout.php">Αποσύνδεση</a>
                         </li>
 <?php
     } else {

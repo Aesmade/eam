@@ -1,7 +1,9 @@
 <?php
     include 'include/php/config.php';
-    include 'include/php/header.php';
 
+    // Start a user session
+    session_start();
+    
     $values = array();
     $errors = array('EMPTY_VALUES_ERROR' => false,
                     'BAD_EMAIL_ERROR' => false,
@@ -43,8 +45,18 @@
             $query = "INSERT INTO `eam`.`User` (`id`, `first_name`, `last_name`, `email`, `password`)
                      VALUES (NULL, '{$values['name']}', '{$values['surname']}', '{$values['email']}', '{$password}');";
             $result = mysql_query($query);
+
+            // Set session variables
+            $_SESSION['user'] = mysql_insert_id();
+            $_SESSION['first_time'] = true;  // loged in for the first time
+
+            // Redirect to the home page.
+            header('Location: index.php');
+            exit();
         }
     }
+    
+    include 'include/php/header.php';
 ?>
     <div class="container">
         <div class="box">
