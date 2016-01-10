@@ -1,8 +1,12 @@
+html {
+  overflow-y: scroll; }
+
 body {
   background-color: #f6f6f6 !important; }
-  body .popover {
-    width: 300px;
-    max-width: 300px; }
+
+body .popover {
+  width: 300px;
+  max-width: 300px; }
 
 div,
 span {
@@ -19,10 +23,12 @@ hr {
   display: -ms-flex;
   display: -o-flex;
   display: flex; }
-  .flex-container .flex-expand {
-    flex-grow: 1; }
-  .flex-container.space-between {
-    justify-content: space-between; }
+
+.flex-container .flex-expand {
+  flex-grow: 1; }
+
+.flex-container.space-between {
+  justify-content: space-between; }
 
 .box {
   border-radius: 5px;
@@ -31,19 +37,21 @@ hr {
   margin-bottom: 20px;
   border: 1px solid #e7e7e7;
   background-color: #f8f8f8; }
-  .box .box-header {
-    font-weight: bold;
-    border-bottom: 1px solid #e7e7e7;
-    margin: -30px;
-    padding: 15px;
-    padding-left: 30px;
-    margin-bottom: 30px; }
-  .box .box-footer {
-    border-top: 1px solid #e7e7e7;
-    margin: -30px;
-    padding: 15px;
-    padding-left: 30px;
-    margin-top: 30px; }
+
+.box .box-header {
+  font-weight: bold;
+  border-bottom: 1px solid #e7e7e7;
+  margin: -30px;
+  padding: 15px;
+  padding-left: 30px;
+  margin-bottom: 30px; }
+
+.box .box-footer {
+  border-top: 1px solid #e7e7e7;
+  margin: -30px;
+  padding: 15px;
+  padding-left: 30px;
+  margin-top: 30px; }
 
 .index-search {
   background-color: #fff;
@@ -52,10 +60,11 @@ hr {
   border-top: 0;
   border-radius: 3px;
   margin-bottom: 10px; }
-  .index-search label,
-  .index-search input,
-  .index-search button {
-    margin: 15px; }
+
+.index-search label,
+.index-search input,
+.index-search button {
+  margin: 15px; }
 
 .hor-separator {
   width: 60%; }
@@ -63,9 +72,10 @@ hr {
 .footer-nav {
   border: 1px solid #e7e7e7;
   background-color: #f8f8f8; }
-  .footer-nav div {
-    text-align: center;
-    padding: 10px; }
+
+.footer-nav div {
+  text-align: center;
+  padding: 10px; }
 
 ol.breadcrumb {
   background-color: transparent; }
@@ -84,12 +94,16 @@ ol.breadcrumb {
 
 .modal-body .form-group.has-feedback .form-control-feedback {
   top: 30px; }
+
 .form-group.has-feedback.has-success .glyphicon-check {
   display: block; }
+
 .form-group.has-feedback.has-success .glyphicon-remove {
   display: none; }
+
 .form-group.has-feedback.has-error .glyphicon-check {
   display: none; }
+
 .form-group.has-feedback.has-error .glyphicon-remove {
   display: block; }
 
@@ -97,12 +111,12 @@ a[href="#"] {
   cursor: no-drop; }
 
 .tooltip > .tooltip-inner {
-  background-color: #0066CC; 
-  color: #FFFFFF; 
+  background-color: #0066CC;
+  color: #FFFFFF;
   padding: 10px;
-  font-size: 14px;}
+  font-size: 14px; }
 
 .tooltip.bottom > .tooltip-arrow {
   border-bottom: 5px solid blue; }
-      
+
 /*# sourceMappingURL=main.css.map */
