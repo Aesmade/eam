@@ -107,8 +107,8 @@
     } else {
 ?>
                         <li>
-                            <a aria-haspopup="true" aria-expanded="false" data-toggle="popover" data-trigger="click" role="button" id="login-btn">Σύνδεση</a>
-                            <div class="hide">
+                            <a aria-haspopup="true" aria-expanded="false" data-toggle="popover" data-container="body" data-placement="bottom" data-html="true" data-trigger="manual" role="button" id="login-btn">Σύνδεση</a>
+                            <div class="hide popover-content">
                                 <form action="login.php" method="post" class="form-horizontal">
                                     <div class="form-group">
                                         <label for="name_inp" class="col-sm-4 control-label">E-mail</label>
@@ -137,11 +137,25 @@
                             (function($) {
                                 $(function() {
                                     $('#login-btn').popover({
-                                        container: 'body',
-                                        placement: 'bottom',
-                                        html: true,
                                         content: function() {
                                             return $(this).next().html();
+                                        }
+                                    }).click(function() {
+                                        if($(this).hasClass('pop')) {
+                                            $(this)
+                                                .popover('hide')
+                                                .removeClass('pop');
+                                        } else {
+                                            $(this)
+                                                .popover('show')
+                                                .addClass('pop');
+                                        }
+                                    });
+                                    $('body').on('click', function (e) {
+                                        if ($(e.target).data('toggle') !== 'popover'
+                                            && $(e.target).parents('.popover-content').length === 0
+                                            && $('#login-btn').hasClass('pop')) { 
+                                                $('#login-btn').popover('hide').removeClass('pop');
                                         }
                                     });
                                 });
