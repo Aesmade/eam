@@ -1,5 +1,62 @@
 <?php
-    include 'header.php';
+    include 'include/php/config.php';
+
+    // Start a user session
+    session_start();
+    
+    $values = array();
+    $errors = array('EMPTY_VALUES_ERROR' => false,
+                    'BAD_EMAIL_ERROR' => false,
+                    'EMAIL_EXISTS_ERROR' => false,
+                    'PASSWORDS_DIFFER_ERROR' => false);
+
+    // Check if the form has been submitted.
+    if (isset($_POST['register'])) {
+	    foreach ($_POST as $key => $value) {
+	        $values[$key] = mysql_real_escape_string($value);
+	        if (empty($values[$key])) {
+	            $errors['EMPTY_VALUES_ERROR'] = true;
+	        }
+	    }
+
+        // Check if the email is invalid.
+        if (!filter_var($values['email'], FILTER_VALIDATE_EMAIL)) {
+            $errors['BAD_EMAIL_ERROR'] = true;
+        }
+
+        // Check if the two provided passwords don't match.
+        if (!empty($values['password']) and $values['password'] != $values['password2']) {
+            $errors['PASSWORDS_DIFFER_ERROR'] = true;
+        }
+
+        // Check if the provided email is already being used.
+        if (!$errors['BAD_EMAIL_ERROR']) {
+            $query = "SELECT * FROM `User` WHERE `email` = '{$values['email']}'";
+            $result = mysql_query($query);
+            if (mysql_num_rows($result) != 0) {
+                $errors['EMAIL_EXISTS_ERROR'] = true;
+            }
+        }
+
+        // Insert user to the database if there are no errors
+        if (!$errors['EMPTY_VALUES_ERROR'] and !$errors['BAD_EMAIL_ERROR'] and
+                !$errors['PASSWORDS_DIFFER_ERROR'] and !$errors['EMAIL_EXISTS_ERROR']) {
+            $password = md5($values['password']);
+            $query = "INSERT INTO `eam`.`User` (`id`, `first_name`, `last_name`, `email`, `password`)
+                     VALUES (NULL, '{$values['name']}', '{$values['surname']}', '{$values['email']}', '{$password}');";
+            $result = mysql_query($query);
+
+            // Set session variables
+            $_SESSION['user'] = mysql_insert_id();
+            $_SESSION['first_time'] = true;  // loged in for the first time
+
+            // Redirect to the home page.
+            header('Location: index.php');
+            exit();
+        }
+    }
+    
+    include 'include/php/header.php';
 ?>
     <div class="container">
         <div class="box">
@@ -41,11 +98,18 @@
                         <input type="password" name="password2" id="password2" placeholder="Επανάληψη κωδικού" class="form-control"><span class="glyphicon glyphicon-check form-control-feedback"></span>
                         <span class="glyphicon glyphicon-remove form-control-feedback"></span></div>
                 </div>
-                <div id="fill-fields" role="alert" class="alert alert-danger" style="display: none">Συμπληρώστε τα παραπάνω πεδία!</div>
-                <div id="invalid-email" role="alert" class="alert alert-danger" style="display: none">Το e-mail δεν έχει σωστή μορφή!</div>
-                <div id="passwords-no-match" role="alert" class="alert alert-danger" style="display: none">Οι κωδικοί δεν είναι ίδιοι!</div>
+<?php
+    $style = ($errors['EMPTY_VALUES_ERROR'] ? "" : "display: none");
+    print "<div id=\"fill-fields\" role=\"alert\" class=\"alert alert-danger col-sm-offset-4 col-sm-8\" style=\"$style\">Συμπληρώστε τα παραπάνω πεδία!</div>\n";
+    $style = ($errors['BAD_EMAIL_ERROR'] ? "" : "display: none");
+    print "<div id=\"invalid-email\" role=\"alert\" class=\"alert alert-danger col-sm-offset-4 col-sm-8\" style=\"$style\">Το e-mail δεν έχει σωστή μορφή!</div>\n";
+    $style = ($errors['EMAIL_EXISTS_ERROR'] ? "" : "display: none");
+    print "<div role=\"alert\" class=\"alert alert-danger col-sm-offset-4 col-sm-8\" style=\"$style\">Το email χρησιμοποιείται ήδη!</div>\n";
+    $style = ($errors['PASSWORDS_DIFFER_ERROR'] ? "" : "display: none");
+    print "<div id=\"passwords-no-match\" role=\"alert\" class=\"alert alert-danger col-sm-offset-4 col-sm-8\" style=\"$style\">Οι κωδικοί δεν είναι ίδιοι!</div>\n";
+?>
                 <div class="text-right">
-                    <button type="submit" class="btn btn-primary btn-lg">Εγγραφή</button>
+                    <input type="submit" name="register" id="submit-button" class="btn btn-primary btn-lg" value="Εγγραφή">
                 </div>
             </form>
         </div>
@@ -60,7 +124,6 @@
                 },
                 errorMsg: '#fill-fields'
             };
-
             // each field has a check function and a message if the check fails
             var checks = {
                 '#username': hasLengthCheck,
@@ -80,14 +143,11 @@
                     errorMsg: '#passwords-no-match'
                 }
             };
-
             for (chk in checks) {
                 var elem = $(chk);
                 var par = elem.parent().parent();
-
                 // provide the function called whenever a field value changes
                 $(chk).on('input', (function(element, parent, checkObj) {
-
                     // closure for the elem, par and checks[c] vars
                     return function() {
                         // if the check succeeds, mark the field and hide the error message
@@ -99,10 +159,8 @@
                             parent.addClass('has-error');
                         }
                     };
-
                 })(elem, par, checks[chk]));
             }
-
             // also check password2 when password changes
             var pass2Elem = $('#password2');
             var pass2Par = pass2Elem.parent().parent();
@@ -115,21 +173,18 @@
                     pass2Par.addClass('has-error');
                 }
             });
-
             $('#register-form').submit(function(event) {
                 $('.alert.alert-danger').hide();
-
                 for (chk in checks) {
                     if (!checks[chk].isValid($(chk).val())) {
                         $(checks[chk].errorMsg).fadeIn();
                         event.preventDefault();
                     }
                 }
-
             });
         });
     })(jQuery);
     </script>
 <?php
-    include 'footer.php';
+    include 'include/php/footer.php';
 ?>

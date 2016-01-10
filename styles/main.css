@@ -96,4 +96,13 @@ ol.breadcrumb {
 a[href="#"] {
   cursor: no-drop; }
 
+.tooltip > .tooltip-inner {
+  background-color: #0066CC; 
+  color: #FFFFFF; 
+  padding: 10px;
+  font-size: 14px;}
+
+.tooltip.bottom > .tooltip-arrow {
+  border-bottom: 5px solid blue; }
+      
 /*# sourceMappingURL=main.css.map */

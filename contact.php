@@ -1,5 +1,5 @@
 <?php
-    include 'header.php';
+    include 'include/php/header.php';
 ?>
     <div class="container">
         <ol class="breadcrumb">
@@ -45,5 +45,5 @@
         </div>
     </div>
 <?php
-    include 'footer.php';
+    include 'include/php/footer.php';
 ?>
