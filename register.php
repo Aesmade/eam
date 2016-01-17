@@ -108,14 +108,23 @@
                         <span class="glyphicon glyphicon-remove form-control-feedback nodisplay"></span></div>
                 </div>
 <?php
-    $style = ($errors['EMPTY_VALUES_ERROR'] ? "" : "display: none");
-    print "<div id=\"fill-fields\" role=\"alert\" class=\"alert alert-danger col-sm-offset-4 col-sm-8\" style=\"$style\"><strong>Σφάλμα!</strong> Συμπληρώστε τα παραπάνω πεδία!</div>\n";
-    $style = ($errors['BAD_EMAIL_ERROR'] ? "" : "display: none");
-    print "<div id=\"invalid-email\" role=\"alert\" class=\"alert alert-danger col-sm-offset-4 col-sm-8\" style=\"$style\"><strong>Σφάλμα!</strong> Το e-mail δεν έχει σωστή μορφή!</div>\n";
-    $style = ($errors['EMAIL_EXISTS_ERROR'] ? "" : "display: none");
-    print "<div role=\"alert\" class=\"alert alert-danger col-sm-offset-4 col-sm-8\" style=\"$style\"><strong>Σφάλμα!</strong> Το email χρησιμοποιείται ήδη!</div>\n";
-    $style = ($errors['PASSWORDS_DIFFER_ERROR'] ? "" : "display: none");
-    print "<div id=\"passwords-no-match\" role=\"alert\" class=\"alert alert-danger col-sm-offset-4 col-sm-8\" style=\"$style\"><strong>Σφάλμα!</strong> Οι κωδικοί δεν είναι ίδιοι!</div>\n";
+    if ($errors['EMPTY_VALUES_ERROR']) {
+?>
+                <div role="alert" class="alert alert-danger col-sm-offset-4 col-sm-8"><strong>Σφάλμα!</strong> Συμπληρώστε τα παραπάνω πεδία!</div>
+<?php
+    } if ($errors['BAD_EMAIL_ERROR']) {
+?>
+                <div role="alert" class="alert alert-danger col-sm-offset-4 col-sm-8"><strong>Σφάλμα!</strong> Το e-mail δεν έχει σωστή μορφή!</div>
+<?php
+    } if ($errors['EMAIL_EXISTS_ERROR']) {
+?>
+                <div role="alert" class="alert alert-danger col-sm-offset-4 col-sm-8"><strong>Σφάλμα!</strong> Το email χρησιμοποιείται ήδη!</div>
+<?php
+    } if ($errors['PASSWORDS_DIFFER_ERROR']) {
+?>
+                <div role="alert" class="alert alert-danger col-sm-offset-4 col-sm-8"><strong>Σφάλμα!</strong> Οι κωδικοί δεν είναι ίδιοι!</div>
+<?php
+    }
 ?>
                 <div class="text-right">
                     <input type="submit" name="register" id="submit-button" class="btn btn-primary btn-lg" value="Εγγραφή">
