@@ -17,6 +17,9 @@ hr {
   margin-top: 10px;
   margin-bottom: 10px; }
 
+.nodisplay {
+  display: none; }
+
 .flex-container {
   display: -webkit-flex;
   display: -moz-flex;
@@ -44,7 +47,8 @@ hr {
   margin: -30px;
   padding: 15px;
   padding-left: 30px;
-  margin-bottom: 30px; }
+  margin-bottom: 30px;
+  background-color: #F0F0F0; }
 
 .box .box-footer {
   border-top: 1px solid #e7e7e7;
@@ -110,13 +114,34 @@ ol.breadcrumb {
 a[href="#"] {
   cursor: no-drop; }
 
+.tooltip-inner {
+    width: 350px;
+}
+
 .tooltip > .tooltip-inner {
-  background-color: #0066CC;
   color: #FFFFFF;
   padding: 10px;
   font-size: 14px; }
 
-.tooltip.bottom > .tooltip-arrow {
-  border-bottom: 5px solid blue; }
+.info-tooltip + .tooltip > .tooltip-inner {
+  background-color: #0066FF; }
+
+.info-tooltip + .tooltip.bottom .tooltip-arrow {
+  border-bottom-color: #0066FF; }
+
+.danger-tooltip + .tooltip > .tooltip-inner {
+  background-color: #A00000; }
+
+.danger-tooltip + .tooltip.right .tooltip-arrow {
+  border-right-color: #A00000; }
+
+#register-form-box {
+    margin: auto;
+    width: 60%;
+    padding: 20px;
+    margin-top: 30px; }
+
+#register-form > .form-group {
+  margin-bottom: 20px; }
 
 /*# sourceMappingURL=main.css.map */
