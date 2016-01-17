@@ -98,10 +98,10 @@
     if (isset($_SESSION['user'])) {
 ?>
                         <li>
-                            <a  href="profile.php" data-toggle="tooltip" data-placement="bottom">Το Προφίλ μου</a>
+                            <a href="profile.php" class="info-tooltip" data-toggle="tooltip" data-placement="bottom">Το Προφίλ μου</a>
                         </li>
                         <li>
-                            <a href="signout.php">Αποσύνδεση</a>
+                            <a href="logout.php">Αποσύνδεση</a>
                         </li>
 <?php
     } else {
