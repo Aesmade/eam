@@ -1,5 +1,5 @@
 <?php
-    include 'include/php/config.php';
+    include 'include/php/db_connect.php';
 
     // Start a user session
     session_start();
@@ -13,7 +13,7 @@
     // Check if the form has been submitted.
     if (isset($_POST['register'])) {
 	    foreach ($_POST as $key => $value) {
-	        $values[$key] = mysql_real_escape_string($value);
+	        $values[$key] = $value;
 	        if (empty($values[$key])) {
 	            $errors['EMPTY_VALUES_ERROR'] = true;
 	        }
@@ -31,24 +31,30 @@
 
         // Check if the provided email is already being used.
         if (!$errors['BAD_EMAIL_ERROR']) {
-            $query = "SELECT * FROM `User` WHERE `email` = '{$values['email']}'";
-            $result = mysql_query($query);
-            if (mysql_num_rows($result) != 0) {
+            $stmt = $db->prepare("SELECT * FROM `User` WHERE `email` = ?");
+            $stmt->bind_param('s', $values['email']);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows != 0) {
                 $errors['EMAIL_EXISTS_ERROR'] = true;
             }
+            $stmt->close();
         }
 
         // Insert user to the database if there are no errors
         if (!$errors['EMPTY_VALUES_ERROR'] and !$errors['BAD_EMAIL_ERROR'] and
                 !$errors['PASSWORDS_DIFFER_ERROR'] and !$errors['EMAIL_EXISTS_ERROR']) {
             $password = md5($values['password']);
-            $query = "INSERT INTO `eam`.`User` (`id`, `first_name`, `last_name`, `email`, `password`)
-                     VALUES (NULL, '{$values['name']}', '{$values['surname']}', '{$values['email']}', '{$password}');";
-            $result = mysql_query($query);
+            $stmt = $db->prepare("INSERT INTO `eam`.`User` (`id`, `first_name`, `last_name`, `email`, `password`) VALUES (NULL, ?, ?, ?, ?)");
+            $stmt->bind_param('ssss', $values['name'], $values['surname'], $values['email'], $password);
+            $stmt->execute();
 
             // Set session variables
-            $_SESSION['user'] = mysql_insert_id();
+            $_SESSION['user'] = $stmt->insert_id;
             $_SESSION['first_time'] = true;  // loged in for the first time
+
+            $stmt->close();
+            $db->close();
 
             // Redirect to the home page.
             header('Location: index.php');
