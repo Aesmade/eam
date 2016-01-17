@@ -206,5 +206,6 @@
         });
     })(jQuery);
     </script>
-</body>
-</html>
+<?php
+    include 'include/php/footer.php'
+?>
