@@ -183,7 +183,7 @@ a[href="#"] {
   padding-bottom: 15px;
 }
 
-.search-result:nth-child(odd) {
+.search-result:nth-child(even) {
   background-color: #efefef;
 }
 
