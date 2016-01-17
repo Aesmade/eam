@@ -13,37 +13,162 @@
             </ul>
             <div class="tab-content index-search">
                 <div id="all" class="tab-pane fade in active">
-                    <form action="#" class="form-inline">
+                    <form action="search.php" class="form-inline">
                         <div class="form-group">
                             <label for="search-dropdown">Αναζήτηση με</label>
                             <select name="search-type" id="search-dropdown" class="form-control">
-                                <option value="">Λέξη κλειδί</option>
-                                <option value="">Τίτλο</option>
-                                <option value="">Περιεχόμενο</option>
-                                <option value="">Συγγραφέα</option>
+                                <option value="keyword">Λέξη κλειδί</option>
+                                <option value="title">Τίτλο</option>
+                                <option value="contents">Περιεχόμενο</option>
+                                <option value="writer">Συγγραφέα</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="search-terms">για</label>
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="search-dropdown">σε</label>
+                            <select name="search-in" id="search-dropdown" class="form-control">
+                                <option value="0">Όλες τις βιβλιοθήκες</option>
+                                <option value="1">Βιβλιοθήκη 1</option>
+                                <option value="2">Βιβλιοθήκη 2</option>
+                                <option value="3">Βιβλιοθήκη 3</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="search-for" value="all" />
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
+                    </form>
+                </div>
+                <div id="books" class="tab-pane fade">
+                    <form action="search.php" class="form-inline">
+                        <div class="form-group">
+                            <label for="search-dropdown">Αναζήτηση με</label>
+                            <select name="search-type" id="search-dropdown" class="form-control">
+                                <option value="keyword">Λέξη κλειδί</option>
+                                <option value="title">Τίτλο</option>
+                                <option value="contents">Περιεχόμενο</option>
+                                <option value="writer">Συγγραφέα</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="search-terms">για</label>
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="search-dropdown">σε</label>
+                            <select name="search-in" id="search-dropdown" class="form-control">
+                                <option value="0">Όλες τις βιβλιοθήκες</option>
+                                <option value="1">Βιβλιοθήκη 1</option>
+                                <option value="2">Βιβλιοθήκη 2</option>
+                                <option value="3">Βιβλιοθήκη 3</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="search-for" value="book" />
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
+                    </form>
+                </div>
+                <div id="magazines" class="tab-pane fade">
+                    <form action="search.php" class="form-inline">
+                        <div class="form-group">
+                            <label for="search-dropdown">Αναζήτηση με</label>
+                            <select name="search-type" id="search-dropdown" class="form-control">
+                                <option value="keyword">Λέξη κλειδί</option>
+                                <option value="title">Τίτλο</option>
+                                <option value="contents">Περιεχόμενο</option>
+                                <option value="writer">Συγγραφέα</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="search-terms">για</label>
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="search-dropdown">σε</label>
+                            <select name="search-in" id="search-dropdown" class="form-control">
+                                <option value="0">Όλες τις βιβλιοθήκες</option>
+                                <option value="1">Βιβλιοθήκη 1</option>
+                                <option value="2">Βιβλιοθήκη 2</option>
+                                <option value="3">Βιβλιοθήκη 3</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="search-for" value="magazine" />
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
+                    </form>
+                </div>
+                <div id="articles" class="tab-pane fade">
+                    <form action="search.php" class="form-inline">
+                        <div class="form-group">
+                            <label for="search-dropdown">Αναζήτηση με</label>
+                            <select name="search-type" id="search-dropdown" class="form-control">
+                                <option value="keyword">Λέξη κλειδί</option>
+                                <option value="title">Τίτλο</option>
+                                <option value="contents">Περιεχόμενο</option>
+                                <option value="writer">Συγγραφέα</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="search-terms">για</label>
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="search-dropdown">σε</label>
+                            <select name="search-in" id="search-dropdown" class="form-control">
+                                <option value="0">Όλες τις βιβλιοθήκες</option>
+                                <option value="1">Βιβλιοθήκη 1</option>
+                                <option value="2">Βιβλιοθήκη 2</option>
+                                <option value="3">Βιβλιοθήκη 3</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="search-for" value="article" />
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
+                    </form>
+                </div>
+                <div id="polymorphic" class="tab-pane fade">
+                    <form action="search.php" class="form-inline">
+                        <div class="form-group">
+                            <label for="search-dropdown">Αναζήτηση με</label>
+                            <select name="search-type" id="search-dropdown" class="form-control">
+                                <option value="keyword">Λέξη κλειδί</option>
+                                <option value="title">Τίτλο</option>
+                                <option value="contents">Περιεχόμενο</option>
+                                <option value="writer">Συγγραφέα</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="search-terms">για</label>
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                        </div>
+                        <div class="form-group">
+                            <label for="search-dropdown">σε</label>
+                            <select name="search-in" id="search-dropdown" class="form-control">
+                                <option value="0">Όλες τις βιβλιοθήκες</option>
+                                <option value="1">Βιβλιοθήκη 1</option>
+                                <option value="2">Βιβλιοθήκη 2</option>
+                                <option value="3">Βιβλιοθήκη 3</option>
+                            </select>
+                        </div>
+                        <input type="hidden" name="search-for" value="polymorphic" />
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
+                    </form>
+                </div>
+                <div id="website" class="tab-pane fade">
+                    <form action="search.php" class="form-inline">
+                        <div class="form-group">
+                            <label for="search-dropdown">Αναζήτηση με</label>
+                            <select name="search-type" id="search-dropdown" class="form-control">
+                                <option value="keyword">Λέξη κλειδί</option>
+                                <option value="title">Τίτλο σελίδας</option>
+                                <option value="contents">Περιεχόμενο</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
                             <input type="text" style="width: 300px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
                         </div>
+                        <input type="hidden" name="search-for" value="site" />
                         <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
-                </div>
-                <div id="books" class="tab-pane fade">
-                    <p></p>
-                </div>
-                <div id="magazines" class="tab-pane fade">
-                    <p></p>
-                </div>
-                <div id="articles" class="tab-pane fade">
-                    <p></p>
-                </div>
-                <div id="polymorphic" class="tab-pane fade">
-                    <p></p>
-                </div>
-                <div id="website" class="tab-pane fade">
-                    <p></p>
                 </div>
             </div>
             <div class="text-right"><a href="#">Σύνθετη αναζήτηση</a></div>
