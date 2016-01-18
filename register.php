@@ -13,7 +13,7 @@
     // Check if the form has been submitted.
     if (isset($_POST['register'])) {
 	    foreach ($_POST as $key => $value) {
-	        $values[$key] = $value;
+	        $values[$key] = trim($value);
 	        if (empty($values[$key])) {
 	            $errors['EMPTY_VALUES_ERROR'] = true;
 	        }
@@ -38,6 +38,7 @@
             if ($stmt->num_rows != 0) {
                 $errors['EMAIL_EXISTS_ERROR'] = true;
             }
+            $stmt->free_result();
             $stmt->close();
         }
 
@@ -45,7 +46,7 @@
         if (!$errors['EMPTY_VALUES_ERROR'] and !$errors['BAD_EMAIL_ERROR'] and
                 !$errors['PASSWORDS_DIFFER_ERROR'] and !$errors['EMAIL_EXISTS_ERROR']) {
             $password = md5($values['password']);
-            $stmt = $db->prepare("INSERT INTO `eam`.`User` (`id`, `first_name`, `last_name`, `email`, `password`) VALUES (NULL, ?, ?, ?, ?)");
+            $stmt = $db->prepare("INSERT INTO `User` (`id`, `first_name`, `last_name`, `email`, `password`) VALUES (NULL, ?, ?, ?, ?)");
             $stmt->bind_param('ssss', $values['name'], $values['surname'], $values['email'], $password);
             $stmt->execute();
 
@@ -65,6 +66,10 @@
     include 'include/php/header.php';
 ?>
     <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="index.php">Αρχική</a></li>
+            <li><span class="active">Εγγραφή</span></li>
+        </ol>
         <div class="box" id="register-form-box">
             <form action="register.php" class="form-horizontal" id="register-form" method="post">
                 <div class="form-group has-feedback">
@@ -143,6 +148,7 @@
             // check used for most fields
             var hasLengthCheck = {
                 isValid: function(str) {
+                    str = str.trim();
                     return str.length > 0;
                 },
                 errorMsg: '#fill-fields'
@@ -221,6 +227,5 @@
         });
     })(jQuery);
     </script>
-<?php
-    include 'include/php/footer.php'
-?>
+</body>
+</html>

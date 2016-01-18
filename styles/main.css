@@ -79,9 +79,8 @@ hr {
 }
 
 .index-search label,
-.index-search input,
 .index-search button {
-    margin: 15px;
+    margin: 0px 10px;
 }
 
 .hor-separator {
@@ -99,6 +98,7 @@ hr {
 }
 
 ol.breadcrumb {
+    margin-bottom: 10px;
     background-color: transparent;
 }
 
@@ -165,6 +165,10 @@ a[href="#"] {
 
 .danger-tooltip + .tooltip.right .tooltip-arrow {
     border-right-color: #A00000;
+}
+
+.danger-tooltip + .tooltip.bottom .tooltip-arrow {
+    border-bottom-color: #A00000;
 }
 
 #register-form-box {

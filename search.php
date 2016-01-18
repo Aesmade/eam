@@ -46,7 +46,7 @@
                             </select>
                         </div>
                         <input type="hidden" name="search-for" value="all" />
-                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
+                        <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
                 </div>
                 <div id="books" class="tab-pane fade">
@@ -74,7 +74,7 @@
                             </select>
                         </div>
                         <input type="hidden" name="search-for" value="book" />
-                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
+                        <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
                 </div>
                 <div id="magazines" class="tab-pane fade">
@@ -102,7 +102,7 @@
                             </select>
                         </div>
                         <input type="hidden" name="search-for" value="magazine" />
-                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
+                        <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
                 </div>
                 <div id="articles" class="tab-pane fade">
@@ -130,7 +130,7 @@
                             </select>
                         </div>
                         <input type="hidden" name="search-for" value="article" />
-                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
+                        <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
                 </div>
                 <div id="polymorphic" class="tab-pane fade">
@@ -158,7 +158,7 @@
                             </select>
                         </div>
                         <input type="hidden" name="search-for" value="polymorphic" />
-                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
+                        <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
                 </div>
                 <div id="website" class="tab-pane fade">
@@ -176,7 +176,7 @@
                             <input type="text" style="width: 300px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
                         </div>
                         <input type="hidden" name="search-for" value="site" />
-                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
+                        <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
                 </div>
             </div>
@@ -276,7 +276,7 @@
             </nav>
                 </div>
         </div>
-    <?php
+<?php
     }
     include 'include/php/footer.php';
 ?>
