@@ -17,22 +17,42 @@
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 <?php
     if (isset($_SESSION['user']) and $_SESSION['first_time']) {
 ?>
     <script>
     $(document).ready(function(){
         var message = "Η εγγραφή σας ήταν επιτυχής!";
-        $('[data-toggle="tooltip"]').tooltip({title: message, trigger: 'manual'}).tooltip("show"); 
+        $('#profile').tooltip({title: message, trigger: 'manual'}).tooltip("show"); 
     });
 
     $(document).click(function(e) {
-       $('[data-toggle="tooltip"]').tooltip("destroy");
+       $('#profile').tooltip("destroy");
+    });
+    </script>
+<?php
+    $_SESSION['first_time'] = false;
+    }
+    if ($_SESSION['login_error']) {
+?>
+    <script>
+    $(document).ready(function(){
+        var message = "Τα στοιχεία σύνδεσης ήταν λανθασμένα!";
+        $('#login-btn').removeAttr('data-container');
+
+        $('#login-btn').addClass('danger-tooltip');
+        $('#login-btn').tooltip({title: message, trigger: 'manual', animation: false}).tooltip("show"); 
+    });
+
+    $(document).on('click', function (e) {
+       $('#login-btn').tooltip('destroy');
+       $('#login-btn').attr('data-container', 'body');
     });
     </script>
 <?php
     }
-    $_SESSION['first_time'] = false;
+    $_SESSION['login_error'] = false;
 ?>
 </head>
 
@@ -98,7 +118,7 @@
     if (isset($_SESSION['user'])) {
 ?>
                         <li>
-                            <a href="profile.php" class="info-tooltip" data-toggle="tooltip" data-placement="bottom">Το Προφίλ μου</a>
+                            <a href="profile.php" id="profile" class="danger-tooltip" data-toggle="tooltip" data-placement="bottom">Το Προφίλ μου</a>
                         </li>
                         <li>
                             <a href="logout.php">Αποσύνδεση</a>
@@ -107,13 +127,14 @@
     } else {
 ?>
                         <li>
-                            <a aria-haspopup="true" aria-expanded="false" data-toggle="popover" data-container="body" data-placement="bottom" data-html="true" data-trigger="manual" role="button" id="login-btn">Σύνδεση</a>
-                            <div class="hide popover-content">
+                            <a aria-haspopup="true" aria-expanded="false" data-toggle="popover" data-placement="bottom" data-container="body"
+                               data-html="true" data-trigger="manual" role="button" id="login-btn">Σύνδεση</a>
+                            <div class="hide popover-content" id="popover-content">
                                 <form action="login.php" method="post" class="form-horizontal">
                                     <div class="form-group">
-                                        <label for="name_inp" class="col-sm-4 control-label">E-mail</label>
+                                        <label for="email_inp" class="col-sm-4 control-label">E-mail</label>
                                         <div class="col-sm-8">
-                                            <input type="text" name="name" id="name_inp" class="form-control" placeholder="E-mail">
+                                            <input type="text" name="email" id="email_inp" class="form-control" placeholder="E-mail">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -138,7 +159,7 @@
                                 $(function() {
                                     $('#login-btn').popover({
                                         content: function() {
-                                            return $(this).next().html();
+                                            return $('#popover-content').html();
                                         }
                                     }).click(function() {
                                         if($(this).hasClass('pop')) {
