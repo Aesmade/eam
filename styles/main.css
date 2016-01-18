@@ -79,9 +79,8 @@ hr {
 }
 
 .index-search label,
-.index-search input,
 .index-search button {
-    margin: 15px;
+    margin: 0px 10px;
 }
 
 .hor-separator {
@@ -99,6 +98,7 @@ hr {
 }
 
 ol.breadcrumb {
+    margin-bottom: 10px;
     background-color: transparent;
 }
 
@@ -167,15 +167,8 @@ a[href="#"] {
     border-right-color: #A00000;
 }
 
-#register-form-box {
-    margin: auto;
-    width: 60%;
-    padding: 20px;
-    margin-top: 30px;
-}
-
-#register-form > .form-group {
-    margin-bottom: 20px;
+.danger-tooltip + .tooltip.bottom .tooltip-arrow {
+    border-bottom-color: #A00000;
 }
 
 .search-result {
