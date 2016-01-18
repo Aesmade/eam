@@ -171,17 +171,6 @@ a[href="#"] {
     border-bottom-color: #A00000;
 }
 
-#register-form-box {
-    margin: auto;
-    width: 60%;
-    padding: 20px;
-    margin-top: 30px;
-}
-
-#register-form > .form-group {
-    margin-bottom: 20px;
-}
-
 .search-result {
   padding-top: 15px;
   padding-bottom: 15px;

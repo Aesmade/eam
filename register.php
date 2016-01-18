@@ -1,5 +1,6 @@
 <?php
     include 'include/php/db_connect.php';
+    include 'include/php/helpers.php';
 
     // Start a user session
     session_start();
@@ -63,7 +64,8 @@
         }
     }
     
-    include 'include/php/header.php';
+    $styles = array("%OTHER_STYLESHEET_1%" => "rel=\"stylesheet\" href=\"styles/register.css\"");
+    echo replace_contents('include/php/header.php', $styles);
 ?>
     <div class="container">
         <ol class="breadcrumb">
