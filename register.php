@@ -63,7 +63,8 @@
             exit();
         }
     }
-    
+
+    // include header.php and register.css
     $styles = array("%OTHER_STYLESHEET_1%" => "rel=\"stylesheet\" href=\"styles/register.css\"");
     echo replace_contents('include/php/header.php', $styles);
 ?>
