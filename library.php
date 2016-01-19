@@ -23,8 +23,9 @@
         }
         $stmt->free_result();
         $stmt->close();
-        $db->close();
     }
+
+    $db->close();
 
     // include header.php and library.css
     $styles = array("%OTHER_STYLESHEET_1%" => "rel=\"stylesheet\" href=\"styles/library.css\"");
