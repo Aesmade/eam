@@ -28,6 +28,6 @@
     }
 
     // Redirect to the home page.
-    header('Location: index.php');
+    header('Location: ' . htmlspecialchars($_SESSION['redirect_url']));
     exit();
 ?>
