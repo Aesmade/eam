@@ -1,0 +1,29 @@
+.vertical-align {
+  display: flex;
+  align-items: center;
+}
+
+h1.title {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 10px 0px;
+}
+
+.multiple-rows {
+  margin-bottom: 5px;
+}
+
+#suggest-btn {
+  float: none;
+  margin: 20px auto;
+}
+
+.side-box {
+  padding: 0px 15px;
+  margin-top: 30px;
+}
+
+.side-box-title {
+  font-weight: bold;
+  padding: 15px 0px;
+}
