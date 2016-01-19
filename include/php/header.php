@@ -1,6 +1,10 @@
 <?php
     // Start a user session
     session_start();
+
+    if (!isset($_SESSION['user'])) {
+        $_SESSION['redirect_url'] = $_SERVER['PHP_SELF']; 
+    }
 ?>
 
 <!DOCTYPE html>

@@ -1,6 +1,8 @@
 <?php
     session_start();
 
+    $redirect_url = $_SESSION['redirect_url'];
+
     // Unset all of the session variables.
     $_SESSION = array();
 
@@ -14,5 +16,5 @@
     }
 
     session_destroy();
-    header('Location: index.php');
+    header('Location: ' . htmlspecialchars($redirect_url));
 ?>

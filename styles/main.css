@@ -117,6 +117,19 @@ ol.breadcrumb {
     margin-top: 80px;
 }
 
+
+.modal {
+  overflow-y: auto;
+}
+
+.modal-open {
+  overflow: auto;
+}
+
+.modal-open[style] {
+  padding-right: 0px !important;
+}
+
 .modal-body .form-group.has-feedback .form-control-feedback {
     top: 30px;
 }
