@@ -1,9 +1,25 @@
 <?php
     include 'include/php/header.php';
+    include 'include/php/db_connect.php';
     if (isset($_GET['search-type']) && isset($_GET['search-terms']) && isset($_GET['search-for'])) {
-        $terms = htmlspecialchars($_GET['search-terms']);
+        $terms = htmlspecialchars($_GET['search-terms'], ENT_QUOTES);
         $searchtype = $_GET['search-type'];
         $searchfor = $_GET['search-for'];
+        if (!($stmt = $db->prepare("SELECT * FROM books WHERE `Book-Title` LIKE (?) AND `Book-Author` LIKE (?)"))) {
+            echo "Prepare failed: (" . $db->errno . ") " . $db->error;
+        }
+        $searchtitle = "%%";
+        $searchauthor = "%%";
+        if ($_GET['search-type'] == 'writer')
+            $searchauthor = "%".$_GET['search-terms']."%";
+        else
+            $searchtitle = "%".$_GET['search-terms']."%";
+        if (!($stmt->bind_param("ss", $searchtitle, $searchauthor))) {
+            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        $stmt->execute();
+        $stmt->bind_result($isbn, $title, $author, $year, $publisher, $imgs, $imgm, $imgl);
+        $stmt->store_result();
 ?>
     <div class="container">
         <ol class="breadcrumb">
@@ -13,12 +29,12 @@
         </ol>
         <div class="box">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#all">Όλα</a></li>
-                <li><a data-toggle="tab" href="#books">Βιβλία</a></li>
-                <li><a data-toggle="tab" href="#magazines">Περιοδικά</a></li>
-                <li><a data-toggle="tab" href="#articles">Άρθρα</a></li>
-                <li><a data-toggle="tab" href="#polymorphic">Πολυμορφικό περιεχόμενο</a></li>
-                <li><a data-toggle="tab" href="#website">Ιστόχωρος</a></li>
+                <li<?php if ($_GET['search-for'] == 'all') echo ' class="active"'; ?>><a data-toggle="tab" href="#all">Όλα</a></li>
+                <li<?php if ($_GET['search-for'] == 'book') echo ' class="active"'; ?>><a data-toggle="tab" href="#books">Βιβλία</a></li>
+                <li<?php if ($_GET['search-for'] == 'magazine') echo ' class="active"'; ?>><a data-toggle="tab" href="#magazines">Περιοδικά</a></li>
+                <li<?php if ($_GET['search-for'] == 'article') echo ' class="active"'; ?>><a data-toggle="tab" href="#articles">Άρθρα</a></li>
+                <li<?php if ($_GET['search-for'] == 'polymorphic') echo ' class="active"'; ?>><a data-toggle="tab" href="#polymorphic">Πολυμορφικό περιεχόμενο</a></li>
+                <li<?php if ($_GET['search-for'] == 'site') echo ' class="active"'; ?>><a data-toggle="tab" href="#website">Ιστόχωρος</a></li>
             </ul>
             <div class="tab-content index-search">
                 <div id="all" class="tab-pane fade in active">
@@ -34,7 +50,7 @@
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($_GET['search-for'] == 'all') echo $terms; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
@@ -62,7 +78,7 @@
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($_GET['search-for'] == 'book') echo $terms; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
@@ -90,7 +106,7 @@
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($_GET['search-for'] == 'magazine') echo $terms; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
@@ -118,7 +134,7 @@
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($_GET['search-for'] == 'article') echo $terms; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
@@ -146,7 +162,7 @@
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($_GET['search-for'] == 'polymorphic') echo $terms; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
@@ -173,7 +189,7 @@
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 300px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                            <input type="text" style="width: 300px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($_GET['search-for'] == 'site') echo $terms; ?>" />
                         </div>
                         <input type="hidden" name="search-for" value="site" />
                         <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
@@ -182,8 +198,9 @@
             </div>
         </div>
         <div class="box">
+        <?php if (mysqli_stmt_num_rows($stmt) > 0) { ?>
             <div class="flex-container space-between">
-                <h3>Αποτελέσματα 1-3 από 3 για "<strong><?php echo $terms ?></strong>"</h3>
+                <h3>Αποτελέσματα 1-<?php echo mysqli_stmt_num_rows($stmt) ?> από <?php echo mysqli_stmt_num_rows($stmt) ?> για "<strong><?php echo $terms ?></strong>"</h3>
                 <div class="form-group form-inline">
                     <label for="ordering">Ταξινόμηση κατά&nbsp;</label>
                     <select name="" id="ordering" class="form-control">
@@ -195,40 +212,22 @@
                 </div>
             </div>
             <hr />  
-            <div class="search-result row spacing-top">
-                <div class="col-sm-2"><img src="resources/img.gif" alt=""></div>
-                <div class="col-sm-5">
-                    <h4>
-                        <a href="#">1. Τίτλος 1</a>
-                        <div class="flex-container space-between spacing-top">
-                            <div>
-                                <div>Από: Όνομα Επώνυμο</div>
-                                <div>Κατηγορία: Πληροφορική</div>
-                            </div>
-                            <div>
-                                <div>Έτος: 2015</div>
-                                <div>Γλώσσα: Ελληνικά</div>
-                            </div>
-                        </div>
-                    </h4>
-                </div>
-                <div class="col-sm-2 col-sm-offset-2 spacing-top">
-                    <button class="btn btn-default">Προσθήκη στη λίστα μου</button>
-                </div>
-            </div>
+            <?php
+            while ($stmt->fetch()) {
+            ?>
             <div class="search-result row">
-                <div class="col-sm-2"><img src="resources/img.gif" alt=""></div>
+                <div class="col-sm-2"><img src="<?php echo $imgs ?>" alt=""></div>
                 <div class="col-sm-5">
                     <h4>
-                        <a href="#">2. Τίτλος 2</a>
+                        <a href="book.php?isbn=<?php echo $isbn ?>"><?php echo $title ?></a>
                         <div class="flex-container space-between spacing-top">
                             <div>
-                                <div>Από: Όνομα Επώνυμο</div>
+                                <div>Από: <?php echo $author ?></div>
                                 <div>Κατηγορία: Πληροφορική</div>
                             </div>
                             <div>
-                                <div>Έτος: 2015</div>
-                                <div>Γλώσσα: Ελληνικά</div>
+                                <div>Έτος: <?php echo $year ?></div>
+                                <div>Γλώσσα: Αγγλικά</div>
                             </div>
                         </div>
                     </h4>
@@ -237,27 +236,9 @@
                     <button class="btn btn-default">Προσθήκη στη λίστα μου</button>
                 </div>
             </div>
-            <div class="search-result row">
-                <div class="col-sm-2"><img src="resources/img.gif" alt=""></div>
-                <div class="col-sm-5">
-                    <h4>
-                        <a href="#">3. Τίτλος 3</a>
-                        <div class="flex-container space-between spacing-top">
-                            <div>
-                                <div>Από: Όνομα Επώνυμο</div>
-                                <div>Κατηγορία: Πληροφορική</div>
-                            </div>
-                            <div>
-                                <div>Έτος: 2015</div>
-                                <div>Γλώσσα: Ελληνικά</div>
-                            </div>
-                        </div>
-                    </h4>
-                </div>
-                <div class="col-sm-2 col-sm-offset-2 spacing-top">
-                    <button class="btn btn-default">Προσθήκη στη λίστα μου</button>
-                </div>
-            </div>
+            <?php
+                }
+            ?>
             <hr class="spacing-top" />
             <nav class="text-center">
                 <ul class="pagination">
@@ -274,8 +255,20 @@
                     </li>
                 </ul>
             </nav>
-                </div>
+            <?php } else { ?>
+            <div class="flex-container space-between">
+                <h3>Δεν βρέθηκαν αποτελέσματα για "<strong><?php echo $terms ?></strong>"</h3>
+            </div>
+            <?php } ?>
+              </div>
         </div>
+        <script>
+        (function($) {
+            $(function() {
+                $('li.active').tab('show');
+            });
+        })(jQuery);
+        </script>
 <?php
     }
     include 'include/php/footer.php';
