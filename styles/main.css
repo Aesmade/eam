@@ -102,13 +102,6 @@ ol.breadcrumb {
     background-color: transparent;
 }
 
-.chat-bar {
-    position: absolute;
-    bottom: 30px;
-    width: 100%;
-    margin: -30px;
-}
-
 .spacing-top {
     margin-top: 25px;
 }
@@ -116,7 +109,6 @@ ol.breadcrumb {
 .spacing-top-large {
     margin-top: 80px;
 }
-
 
 .modal {
   overflow-y: auto;
