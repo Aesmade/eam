@@ -6,15 +6,16 @@
 
     if (isset($_GET['isbn'])) {
         $book['isbn'] = $_GET['isbn'];
+        $types = array('book' => 'Βιβλίο');
 
         // Query book basic information
-        $query = "SELECT title, description, publication_date, type FROM `Book` where isbn = ?";
+        $query = "SELECT title, description, publication_date, type, imgm FROM `Book` where isbn = ?";
         $stmt = $db->prepare($query);
         $stmt->bind_param('s', $book['isbn']);
         $stmt->execute();
         $stmt->store_result();
         if ($stmt->num_rows == 1) {
-            $stmt->bind_result($book['title'], $book['description'], $book['pub_date'], $book['type']);
+            $stmt->bind_result($book['title'], $book['description'], $book['pub_date'], $book['type'], $book['imgm']);
             $stmt->fetch();
             foreach ($book as $key => $value) {
                 $book[$key] = htmlspecialchars($value);
@@ -134,9 +135,13 @@
                         <div class="text-right col-sm-3 col-md-2"><strong>ISBN</strong></div>
                         <div class="col-sm-9 col-md-10"><?php echo $book['isbn'] ?></div>
                     </div>
+                    <div class="row multiple-rows">
+                        <div class="text-right col-sm-3 col-md-2"><strong>Τύπος</strong></div>
+                        <div class="col-sm-9 col-md-10"><?php echo $types[$book['type']] ?></div>
+                    </div>
                 </div>
                 <div class="col-sm-3">
-                    <img src="resources/img.gif" style="width: 100%; height: 100%;" alt="">
+                    <img src="<?php echo $book['imgm'] ?>" style="width: 100%; height: 100%;" alt="">
                     <div class="text-center">
                         <button id="suggest-btn" class="btn btn-default btn-lg" data-toggle="modal" data-target="#suggest-dlg">Προτείνετε το βιβλίο</button>
                     </div>
@@ -149,11 +154,13 @@
                     <div class="box-header">Διαθεσιμότητα</div>
 <?php
     foreach ($book['quantities'] as $lib_books) {
-        echo '<div class="row multiple-rows vertical-align">' . "\n";
-        echo '<div class="col-sm-6"><a href="' . 'library.php?id=' . $lib_books[0] . '">' . $lib_books[1] . '</a></div>' . "\n";
-        echo '<div class="col-sm-3"> Διαθέσιμα ' . $lib_books[3] . ' από ' . $lib_books[2] . '</div>' . "\n";
-        echo '<div class="col-sm-3"><button class="btn btn-primary">Δανεισμός</button></div>' . "\n";
-        echo '</div>' . "\n";
+?>
+                        <div class="row multiple-rows vertical-align">
+                            <div class="col-sm-6"><a href="library.php?id=<?php echo $lib_books[0]?>"><?php echo $lib_books[1]?></a></div>
+                            <div class="col-sm-3">Διαθέσιμα <?php echo $lib_books[3]?> από <?php echo $lib_books[2]?></div>
+                            <div class="col-sm-3"><button class="btn btn-primary">Δανεισμός</button></div>
+                        </div>
+<?php
     }
 ?>
                     </div>
