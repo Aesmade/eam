@@ -2,24 +2,41 @@
     include 'include/php/header.php';
     include 'include/php/db_connect.php';
 
-    if (isset($_GET['search-type']) && isset($_GET['search-terms']) && isset($_GET['search-for'])) {
+    if (isset($_GET['search-type']) && isset($_GET['search-terms']) && isset($_GET['search-for']) && isset($_GET['search-in'])) {
         $terms = htmlspecialchars($_GET['search-terms'], ENT_QUOTES);
         $searchtype = $_GET['search-type'];
         $searchfor = $_GET['search-for'];
-        if (!($stmt = $db->prepare("SELECT isbn, title, publication_date, type, imgs FROM `Book` WHERE title LIKE (?)"))) {
-            echo "Prepare failed: (" . $db->errno . ") " . $db->error;
+        $searchin = intval($_GET['search-in']);
+
+        if ($searchtype == 'title' || $searchtype == 'keyword')
+            $query = 'SELECT isbn, title, publication_date, type, imgs FROM `Book` WHERE title LIKE ?';
+        else if ($searchtype == 'contents')
+            $query = 'SELECT isbn, title, publication_date, type, imgs FROM `Book` WHERE description LIKE ?';
+        else if ($searchtype == 'writer')
+            $query = 'SELECT isbn, title, publication_date, type, imgs FROM `Book` WHERE isbn IN (SELECT book_isbn FROM 
+                `Book_Authors`, `Author` WHERE `Book_Authors`.author_id = `Author`.id AND `Author`.name LIKE ?)';
+        
+        if ($searchfor != 'all')
+             $query .= ' AND type = ?';
+
+        if ($searchin != 0)
+            $query .= " AND isbn IN (SELECT book_isbn FROM `Books_at_Libraries` WHERE library_id = $searchin AND quantity > 0)";
+
+        if (!($stmt = $db->prepare($query))) {
+            echo 'Prepare failed: (' . $db->errno . ') ' . $db->error;
         }
-        $searchtitle = "%%";
-        $searchauthor = "%%";
-        $searchtitle = "%".$_GET['search-terms']."%";
-        if (!($stmt->bind_param("s", $searchtitle))) {
-            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-        }
+
+        $searchterms = '%'.$_GET['search-terms'].'%';
+        if ($searchfor == 'all')
+            $stmt->bind_param('s', $searchterms);
+        else
+            $stmt->bind_param('ss', $searchterms, $searchfor);
+
         $stmt->execute();
         $stmt->bind_result($isbn, $title, $pub_date, $type, $imgs);
         $stmt->store_result();
         
-        $types = array('book' => 'Βιβλίο');
+        $types = array('book' => 'Βιβλίο', 'magazine' => 'Περιοδικό', 'article' => 'Άρθρο', 'polymorphic' => 'Πολυμορφικό');
 ?>
     <div class="container">
         <ol class="breadcrumb">
@@ -29,15 +46,15 @@
         </ol>
         <div class="box">
             <ul class="nav nav-tabs">
-                <li<?php if ($_GET['search-for'] == 'all') echo ' class="active"'; ?>><a data-toggle="tab" href="#all">Όλα</a></li>
-                <li<?php if ($_GET['search-for'] == 'book') echo ' class="active"'; ?>><a data-toggle="tab" href="#books">Βιβλία</a></li>
-                <li<?php if ($_GET['search-for'] == 'magazine') echo ' class="active"'; ?>><a data-toggle="tab" href="#magazines">Περιοδικά</a></li>
-                <li<?php if ($_GET['search-for'] == 'article') echo ' class="active"'; ?>><a data-toggle="tab" href="#articles">Άρθρα</a></li>
-                <li<?php if ($_GET['search-for'] == 'polymorphic') echo ' class="active"'; ?>><a data-toggle="tab" href="#polymorphic">Πολυμορφικό περιεχόμενο</a></li>
-                <li<?php if ($_GET['search-for'] == 'site') echo ' class="active"'; ?>><a data-toggle="tab" href="#website">Ιστόχωρος</a></li>
+                <li<?php if ($searchfor == 'all') echo ' class="active"'; ?>><a data-toggle="tab" href="#all">Όλα</a></li>
+                <li<?php if ($searchfor == 'book') echo ' class="active"'; ?>><a data-toggle="tab" href="#books">Βιβλία</a></li>
+                <li<?php if ($searchfor == 'magazine') echo ' class="active"'; ?>><a data-toggle="tab" href="#magazines">Περιοδικά</a></li>
+                <li<?php if ($searchfor == 'article') echo ' class="active"'; ?>><a data-toggle="tab" href="#articles">Άρθρα</a></li>
+                <li<?php if ($searchfor == 'polymorphic') echo ' class="active"'; ?>><a data-toggle="tab" href="#polymorphic">Πολυμορφικό περιεχόμενο</a></li>
+                <li<?php if ($searchfor == 'site') echo ' class="active"'; ?>><a data-toggle="tab" href="#website">Ιστόχωρος</a></li>
             </ul>
             <div class="tab-content index-search">
-                <div id="all" class="tab-pane fade in active">
+                <div id="all" class="tab-pane fade<?php if ($searchfor == 'all') echo ' in active'; ?>">
                     <form action="search.php" class="form-inline">
                         <div class="form-group">
                             <label for="search-dropdown">Αναζήτηση με</label>
@@ -50,7 +67,7 @@
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($_GET['search-for'] == 'all') echo $terms; ?>" />
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($searchfor == 'all') echo $terms; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
@@ -65,7 +82,7 @@
                         <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
                 </div>
-                <div id="books" class="tab-pane fade">
+                <div id="books" class="tab-pane fade<?php if ($searchfor == 'book') echo ' in active'; ?>">
                     <form action="search.php" class="form-inline">
                         <div class="form-group">
                             <label for="search-dropdown">Αναζήτηση με</label>
@@ -78,7 +95,7 @@
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($_GET['search-for'] == 'book') echo $terms; ?>" />
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($searchfor == 'book') echo $terms; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
@@ -93,7 +110,7 @@
                         <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
                 </div>
-                <div id="magazines" class="tab-pane fade">
+                <div id="magazines" class="tab-pane fade<?php if ($searchfor == 'magazine') echo ' in active'; ?>">
                     <form action="search.php" class="form-inline">
                         <div class="form-group">
                             <label for="search-dropdown">Αναζήτηση με</label>
@@ -106,7 +123,7 @@
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($_GET['search-for'] == 'magazine') echo $terms; ?>" />
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($searchfor == 'magazine') echo $terms; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
@@ -121,7 +138,7 @@
                         <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
                 </div>
-                <div id="articles" class="tab-pane fade">
+                <div id="articles" class="tab-pane fade<?php if ($searchfor == 'article') echo ' in active'; ?>">
                     <form action="search.php" class="form-inline">
                         <div class="form-group">
                             <label for="search-dropdown">Αναζήτηση με</label>
@@ -134,7 +151,7 @@
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($_GET['search-for'] == 'article') echo $terms; ?>" />
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($searchfor == 'article') echo $terms; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
@@ -149,7 +166,7 @@
                         <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
                 </div>
-                <div id="polymorphic" class="tab-pane fade">
+                <div id="polymorphic" class="tab-pane fade<?php if ($searchfor == 'polymorphic') echo ' in active'; ?>">
                     <form action="search.php" class="form-inline">
                         <div class="form-group">
                             <label for="search-dropdown">Αναζήτηση με</label>
@@ -162,7 +179,7 @@
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($_GET['search-for'] == 'polymorphic') echo $terms; ?>" />
+                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($searchfor == 'polymorphic') echo $terms; ?>" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
@@ -177,7 +194,7 @@
                         <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
                 </div>
-                <div id="website" class="tab-pane fade">
+                <div id="website" class="tab-pane fade<?php if ($searchfor == 'site') echo ' in active'; ?>">
                     <form action="search.php" class="form-inline">
                         <div class="form-group">
                             <label for="search-dropdown">Αναζήτηση με</label>
@@ -189,7 +206,7 @@
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 300px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($_GET['search-for'] == 'site') echo $terms; ?>" />
+                            <input type="text" style="width: 300px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" value="<?php if ($searchfor == 'site') echo $terms; ?>" />
                         </div>
                         <input type="hidden" name="search-for" value="site" />
                         <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
@@ -266,6 +283,9 @@
         (function($) {
             $(function() {
                 $('li.active').tab('show');
+                var dropdowns = $('.active.in #search-dropdown');
+                dropdowns.first().val('<?php echo $searchtype; ?>');
+                dropdowns.last().val('<?php echo $searchin; ?>');
             });
         })(jQuery);
         </script>
