@@ -87,12 +87,12 @@ hr {
     width: 60%;
 }
 
-.footer-nav {
+#footer-nav {
     border: 1px solid #e7e7e7;
     background-color: #f8f8f8;
 }
 
-.footer-nav div {
+#footer-nav div {
     text-align: center;
     padding: 10px;
 }
@@ -150,10 +150,6 @@ ol.breadcrumb {
     display: block;
 }
 
-a[href="#"] {
-    cursor: no-drop;
-}
-
 .tooltip-inner {
     width: 350px;
 }
@@ -185,12 +181,12 @@ a[href="#"] {
 }
 
 .search-result {
-  padding-top: 15px;
-  padding-bottom: 15px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .search-result:nth-child(even) {
-  background-color: #efefef;
+    background-color: #efefef;
 }
 
 /*# sourceMappingURL=main.css.map */
