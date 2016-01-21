@@ -8,14 +8,14 @@
         $id = $_GET['id'];
 
         $query = "SELECT name, description, address, latitude, longitude, " .
-            "telephone, email, opening_time, closing_time FROM `Library` where id = ?";
+            "telephone, email, opening_time, closing_time, img FROM `Library` where id = ?";
         $stmt = $db->prepare($query);
         $stmt->bind_param('i', $id);
         $stmt->execute();
         $stmt->store_result();
         if ($stmt->num_rows == 1) {
             $stmt->bind_result($lib['name'], $lib['description'], $lib['address'],
-                $lib['lat'], $lib['lon'], $lib['tel'], $lib['email'], $lib['open'], $lib['close']);
+                $lib['lat'], $lib['lon'], $lib['tel'], $lib['email'], $lib['open'], $lib['close'], $lib['img']);
             $stmt->fetch();
             foreach ($lib as $key => $value) {
                 $lib[$key] = htmlspecialchars($value);
@@ -73,7 +73,7 @@
                     </div><!--
                  --><div id="lib-content-right">
                         <div id="lib-image-div">
-                            <img src="resources/thet.jpg" alt="" id="lib-image">
+                            <img src="<?php echo $lib['img'] ?>" alt="" id="lib-image">
                         </div>
                         <div id="links-div">
                             <div><strong>Υπηρεσίες</strong></div>

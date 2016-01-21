@@ -1,25 +1,25 @@
 <?php
     include 'include/php/header.php';
     include 'include/php/db_connect.php';
+
     if (isset($_GET['search-type']) && isset($_GET['search-terms']) && isset($_GET['search-for'])) {
         $terms = htmlspecialchars($_GET['search-terms'], ENT_QUOTES);
         $searchtype = $_GET['search-type'];
         $searchfor = $_GET['search-for'];
-        if (!($stmt = $db->prepare("SELECT * FROM books WHERE `Book-Title` LIKE (?) AND `Book-Author` LIKE (?)"))) {
+        if (!($stmt = $db->prepare("SELECT isbn, title, publication_date, type, imgs FROM `Book` WHERE title LIKE (?)"))) {
             echo "Prepare failed: (" . $db->errno . ") " . $db->error;
         }
         $searchtitle = "%%";
         $searchauthor = "%%";
-        if ($_GET['search-type'] == 'writer')
-            $searchauthor = "%".$_GET['search-terms']."%";
-        else
-            $searchtitle = "%".$_GET['search-terms']."%";
-        if (!($stmt->bind_param("ss", $searchtitle, $searchauthor))) {
+        $searchtitle = "%".$_GET['search-terms']."%";
+        if (!($stmt->bind_param("s", $searchtitle))) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
         $stmt->execute();
-        $stmt->bind_result($isbn, $title, $author, $year, $publisher, $imgs, $imgm, $imgl);
+        $stmt->bind_result($isbn, $title, $pub_date, $type, $imgs);
         $stmt->store_result();
+        
+        $types = array('book' => 'Βιβλίο');
 ?>
     <div class="container">
         <ol class="breadcrumb">
@@ -216,7 +216,7 @@
             while ($stmt->fetch()) {
             ?>
             <div class="search-result row">
-                <div class="col-sm-2"><img src="<?php echo $imgs ?>" alt=""></div>
+                <div class="col-sm-2"><img src="<?php echo $imgs ?>" alt="" style="height: 100px; widht: 100px"></div>
                 <div class="col-sm-5">
                     <h4>
                         <a href="book.php?isbn=<?php echo $isbn ?>"><?php echo $title ?></a>
@@ -226,8 +226,8 @@
                                 <div>Κατηγορία: Πληροφορική</div>
                             </div>
                             <div>
-                                <div>Έτος: <?php echo $year ?></div>
-                                <div>Γλώσσα: Αγγλικά</div>
+                                <div>Έτος: <?php echo $pub_date ?></div>
+                                <div>Τύπος: <?php echo $types[$type] ?></div>
                             </div>
                         </div>
                     </h4>
@@ -270,6 +270,8 @@
         })(jQuery);
         </script>
 <?php
+        $stmt->close();
+        $db->close();
     }
     include 'include/php/footer.php';
 ?>

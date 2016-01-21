@@ -1,0 +1,28 @@
+.vertical-align {
+  display: flex;
+  align-items: center;
+}
+
+#left-box {
+    height: 630px;
+}
+
+#right-box-top, #right-box-bottom {
+    position: relative;
+    height: 300px;
+}
+
+#more-questions-link {
+    font-weight: bold;
+    font-size: 16px;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+}
+
+#chat-bar {
+    position: absolute;
+    bottom: 30px;
+    width: 100%;
+    margin: -30px;
+}
