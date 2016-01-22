@@ -236,10 +236,22 @@
                 <div class="col-sm-2"><img src="<?php echo $imgs ?>" alt="" style="height: 100px; widht: 100px"></div>
                 <div class="col-sm-5">
                     <h4>
-                        <a href="book.php?isbn=<?php echo $isbn ?>"><?php echo $title ?></a>
+                        <strong><a href="book.php?isbn=<?php echo $isbn ?>"><?php echo $title ?></a></strong>
                         <div class="flex-container space-between spacing-top">
                             <div>
-                                <div>Από: <?php echo $author ?></div>
+                                <div>Από: <?php
+                                    $authorstmt = $db->prepare('SELECT `Author`.name, `Author`.id FROM `Author`, `Book_Authors` 
+                                        WHERE `Book_Authors`.book_isbn = ? AND `Author`.id = `Book_Authors`.author_id');
+                                    $authorstmt->bind_param('s', $isbn);
+                                    $authorstmt->execute();
+                                    $authorstmt->bind_result($authorname, $authorid);
+
+                                    if ($authorstmt->fetch()) {
+                                        echo "<a href='author.php?id=$authorid'>$authorname</a>";
+                                        while ($authorstmt->fetch())
+                                            echo ", <a href='author.php?id=$authorid'>$authorname</a>";
+                                    }
+                                ?></div>
                                 <div>Κατηγορία: Πληροφορική</div>
                             </div>
                             <div>
