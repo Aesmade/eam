@@ -1,5 +1,14 @@
 <?php
-    include 'include/php/header.php';
+    include 'include/php/db_connect.php';
+    include 'include/php/helpers.php';
+    include 'include/php/queries/query_libraries.php';
+
+    $libs = all_libraries($db);
+    $db->close();
+
+    // include header.php and library.css
+    $styles = array('%OTHER_STYLESHEET_1%' => 'rel="stylesheet" href="styles/index.css"');
+    echo replace_contents('include/php/header.php', $styles);
 ?>
     <div class="container">
         <div class="box">
@@ -9,7 +18,7 @@
                 <li><a data-toggle="tab" href="#magazines">Περιοδικά</a></li>
                 <li><a data-toggle="tab" href="#articles">Άρθρα</a></li>
                 <li><a data-toggle="tab" href="#polymorphic">Πολυμορφικό περιεχόμενο</a></li>
-                <li><a data-toggle="tab" href="#website">Ιστόχωρος</a></li>
+                <li><a data-toggle="tab" href="#libraries">Βιβλιοθήκες</a></li>
             </ul>
             <div class="tab-content index-search">
                 <div id="all" class="tab-pane fade in active">
@@ -17,23 +26,26 @@
                         <div class="form-group">
                             <label for="search-dropdown">Αναζήτηση με</label>
                             <select name="search-type" id="search-dropdown" class="form-control">
-                                <option value="keyword">Λέξη κλειδί</option>
                                 <option value="title">Τίτλο</option>
                                 <option value="contents">Περιεχόμενο</option>
-                                <option value="writer">Συγγραφέα</option>
+                                <option value="author">Συγγραφέα</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                            <input type="text" style="width: 250px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
                             <select name="search-in" id="search-dropdown" class="form-control">
                                 <option value="0">Όλες τις βιβλιοθήκες</option>
-                                <option value="1">Βιβλιοθήκη 1</option>
-                                <option value="2">Βιβλιοθήκη 2</option>
-                                <option value="3">Βιβλιοθήκη 3</option>
+                                <?php
+                                    foreach ($libs as $lib) {
+                                ?>
+                                <option value="<?php echo $lib['id'] ?>"><?php echo substr($lib['name'], strlen("Βιβλιοθήκη ")) ?></option>
+                                <?php
+                                    }
+                                ?>
                             </select>
                         </div>
                         <input type="hidden" name="search-for" value="all" />
@@ -45,23 +57,26 @@
                         <div class="form-group">
                             <label for="search-dropdown">Αναζήτηση με</label>
                             <select name="search-type" id="search-dropdown" class="form-control">
-                                <option value="keyword">Λέξη κλειδί</option>
                                 <option value="title">Τίτλο</option>
                                 <option value="contents">Περιεχόμενο</option>
-                                <option value="writer">Συγγραφέα</option>
+                                <option value="author">Συγγραφέα</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                            <input type="text" style="width: 250px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
                             <select name="search-in" id="search-dropdown" class="form-control">
                                 <option value="0">Όλες τις βιβλιοθήκες</option>
-                                <option value="1">Βιβλιοθήκη 1</option>
-                                <option value="2">Βιβλιοθήκη 2</option>
-                                <option value="3">Βιβλιοθήκη 3</option>
+                                <?php
+                                    foreach ($libs as $lib) {
+                                ?>
+                                <option value="<?php echo $lib['id'] ?>"><?php echo substr($lib['name'], strlen("Βιβλιοθήκη ")) ?></option>
+                                <?php
+                                    }
+                                ?>
                             </select>
                         </div>
                         <input type="hidden" name="search-for" value="book" />
@@ -73,23 +88,26 @@
                         <div class="form-group">
                             <label for="search-dropdown">Αναζήτηση με</label>
                             <select name="search-type" id="search-dropdown" class="form-control">
-                                <option value="keyword">Λέξη κλειδί</option>
                                 <option value="title">Τίτλο</option>
                                 <option value="contents">Περιεχόμενο</option>
-                                <option value="writer">Συγγραφέα</option>
+                                <option value="author">Συγγραφέα</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                            <input type="text" style="width: 250px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
                             <select name="search-in" id="search-dropdown" class="form-control">
                                 <option value="0">Όλες τις βιβλιοθήκες</option>
-                                <option value="1">Βιβλιοθήκη 1</option>
-                                <option value="2">Βιβλιοθήκη 2</option>
-                                <option value="3">Βιβλιοθήκη 3</option>
+                                <?php
+                                    foreach ($libs as $lib) {
+                                ?>
+                                <option value="<?php echo $lib['id'] ?>"><?php echo substr($lib['name'], strlen("Βιβλιοθήκη ")) ?></option>
+                                <?php
+                                    }
+                                ?>
                             </select>
                         </div>
                         <input type="hidden" name="search-for" value="magazine" />
@@ -101,23 +119,26 @@
                         <div class="form-group">
                             <label for="search-dropdown">Αναζήτηση με</label>
                             <select name="search-type" id="search-dropdown" class="form-control">
-                                <option value="keyword">Λέξη κλειδί</option>
                                 <option value="title">Τίτλο</option>
                                 <option value="contents">Περιεχόμενο</option>
-                                <option value="writer">Συγγραφέα</option>
+                                <option value="author">Συγγραφέα</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                            <input type="text" style="width: 250px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
                             <select name="search-in" id="search-dropdown" class="form-control">
                                 <option value="0">Όλες τις βιβλιοθήκες</option>
-                                <option value="1">Βιβλιοθήκη 1</option>
-                                <option value="2">Βιβλιοθήκη 2</option>
-                                <option value="3">Βιβλιοθήκη 3</option>
+                                <?php
+                                    foreach ($libs as $lib) {
+                                ?>
+                                <option value="<?php echo $lib['id'] ?>"><?php echo substr($lib['name'], strlen("Βιβλιοθήκη ")) ?></option>
+                                <?php
+                                    }
+                                ?>
                             </select>
                         </div>
                         <input type="hidden" name="search-for" value="article" />
@@ -129,44 +150,47 @@
                         <div class="form-group">
                             <label for="search-dropdown">Αναζήτηση με</label>
                             <select name="search-type" id="search-dropdown" class="form-control">
-                                <option value="keyword">Λέξη κλειδί</option>
                                 <option value="title">Τίτλο</option>
                                 <option value="contents">Περιεχόμενο</option>
-                                <option value="writer">Συγγραφέα</option>
+                                <option value="author">Συγγραφέα</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 270px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                            <input type="text" style="width: 250px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
                         </div>
                         <div class="form-group">
                             <label for="search-dropdown">σε</label>
-                            <select name="search-in" id="search-dropdown" class="form-control">
+                            <select name="search-in" id="search-dropdown" class="form-control library-select">
                                 <option value="0">Όλες τις βιβλιοθήκες</option>
-                                <option value="1">Βιβλιοθήκη 1</option>
-                                <option value="2">Βιβλιοθήκη 2</option>
-                                <option value="3">Βιβλιοθήκη 3</option>
+                                <?php
+                                    foreach ($libs as $lib) {
+                                ?>
+                                <option value="<?php echo $lib['id'] ?>"><?php echo substr($lib['name'], strlen("Βιβλιοθήκη ")) ?></option>
+                                <?php
+                                    }
+                                ?>
                             </select>
                         </div>
                         <input type="hidden" name="search-for" value="polymorphic" />
                         <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
                 </div>
-                <div id="website" class="tab-pane fade">
+                <div id="libraries" class="tab-pane fade">
                     <form action="search.php" class="form-inline">
                         <div class="form-group">
                             <label for="search-dropdown">Αναζήτηση με</label>
                             <select name="search-type" id="search-dropdown" class="form-control">
-                                <option value="keyword">Λέξη κλειδί</option>
-                                <option value="title">Τίτλο σελίδας</option>
+                                <option value="name">Όνομα</option>
+                                <option value="address">Διεύθυνση</option>
                                 <option value="contents">Περιεχόμενο</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="search-terms">για</label>
-                            <input type="text" style="width: 300px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                            <input type="text" style="width: 350px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
                         </div>
-                        <input type="hidden" name="search-for" value="site" />
+                        <input type="hidden" name="search-for" value="libraries" />
                         <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
                     </form>
                 </div>
@@ -174,36 +198,39 @@
             <div class="text-right"><a href="#">Σύνθετη αναζήτηση</a></div>
         </div>
         <div class="row" style="display: flex">
-            <div class="col-sm-6">
+            <div class="col-sm-7">
                 <div class="box">
                     <div class="box-header">Βιβλιοθήκες</div>
-                    <div>
-                        <h3><a href="#"><b>Βιβλιοθήκη 1</b></a></h3>
-                        <div>Σήμερα: <strong>09:00 - 21:00</strong></div>
-                        <div><a href="#">Πανεπιστημίου 101</a>
-                            <div class="pull-right"><span class="glyphicon glyphicon-earphone"></span> 210 1234567</div>
+                    <?php
+                        foreach ($libs as $lib) {
+                    ?>
+                    <div class="row" style="padding: 5px">
+                        <div class="col-sm-3">
+                            <img src="<?php echo $lib['img'] ?>" alt="" style="height: 100px; width:100px; image-fit:contain;">
+                        </div>
+                        <div class="col-sm-9">
+                            <h4><a href="library.php?id=<?php echo $lib['id'] ?>"><b><?php echo $lib['name'] ?></b></a></h4>
+                            <div>
+                                <span>Σήμερα: <strong><?php echo substr($lib['open'], 0, 5) ?> - <?php echo substr($lib['close'], 0, 5) ?></strong></span>
+                            </div>
+                            <div>
+                                <span><?php echo $lib['address'] ?></span>
+                                <div class="pull-right"><span class="glyphicon glyphicon-earphone"></span> <?php echo $lib['phone'] ?></div>
+                            </div>
                         </div>
                     </div>
-                    <hr class="hor-separator">
-                    <div>
-                        <h3><a href="#"><b>Βιβλιοθήκη 2</b></a></h3>
-                        <div>Σήμερα: <strong>09:00 - 21:00</strong></div>
-                        <div><a href="#">Πανεπιστημίου 101</a>
-                            <div class="pull-right"><span class="glyphicon glyphicon-earphone"></span> 210 1234567</div>
-                        </div>
-                    </div>
-                    <hr class="hor-separator">
-                    <div>
-                        <h3><a href="#"><b>Βιβλιοθήκη 3</b></a></h3>
-                        <div>Σήμερα: <strong>09:00 - 21:00</strong></div>
-                        <div><a href="#">Πανεπιστημίου 101</a>
-                            <div class="pull-right"><span class="glyphicon glyphicon-earphone"></span> 210 1234567</div>
-                        </div>
-                    </div>
-                    <div class="box-footer"><a href="#">Προβολή όλων</a></div>
+                    <?php
+                            if ($lib['id'] != $libs[count($libs) - 1]['id']) {
+                    ?> 
+                    <hr />
+                    <?php
+                            }
+                        }
+                    ?>
+                    <div class="box-footer"><a href="libraries_calendar.php">Προβολή όλων</a></div>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-sm-5">
                 <div class="box">
                     <div class="box-header">Ανακοινώσεις</div>
                     <div class="flex-container">
