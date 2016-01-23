@@ -79,8 +79,8 @@
                             <div><strong>Υπηρεσίες</strong></div>
                             <div class="content">
                                 <ul>
-                                    <li><a href="#">Αναζήτηση τίτλων</a></li>
-                                    <li><a href="#">Βιβλία & συλλογές</a></li>
+                                    <li><a href="search.php?search-type=title&search-terms=&search-in=<?php echo $id ?>&search-for=all">Αναζήτηση τίτλων</a></li>
+                                    <li><a href="search.php?search-type=title&search-terms=&search-in=<?php echo $id ?>&search-for=all">Βιβλία & συλλογές</a></li>
                                     <li><a href="#">Κανονισμοί δανεισμού</a></li>
                                     <li><a href="#">Για ΑΜΕΑ</a></li>
                                     <li><a href="#">Περισσότερες Υπηρεσίες</a></li>

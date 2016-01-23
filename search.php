@@ -258,7 +258,11 @@
         <div class="box">
         <?php if (mysqli_stmt_num_rows($stmt) > 0) { ?>
             <div class="flex-container space-between">
-                <span>Αποτελέσματα 1 έως <?php echo mysqli_stmt_num_rows($stmt) ?> από <?php echo mysqli_stmt_num_rows($stmt) ?> για "<strong><?php echo $terms ?></strong>"</span>
+                <span>
+                <?php if (strlen($terms) > 0) { ?>
+                Αποτελέσματα 1 έως <?php echo mysqli_stmt_num_rows($stmt) ?> από <?php echo mysqli_stmt_num_rows($stmt) ?> για "<strong><?php echo $terms ?></strong>"
+                <?php } ?>
+                </span>
                 <div class="form-group form-inline">
                     <label for="ordering">Ταξινόμηση κατά&nbsp;</label>
                     <select name="" id="ordering" class="form-control">
@@ -366,7 +370,9 @@
             </nav>
         <?php } else { ?>
             <div class="flex-container space-between">
-                <span>Δεν βρέθηκαν αποτελέσματα για "<strong><?php echo $terms ?></strong>"</span>
+                <span>Δεν βρέθηκαν αποτελέσματα
+                <?php if (strlen($terms) > 0) { ?> για "<strong><?php echo $terms ?></strong>"<?php } ?>
+                </span>
             </div>
         <?php } ?>
         </div>
