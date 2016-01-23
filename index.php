@@ -246,7 +246,7 @@
                     <div class="flex-container">
                         <div class="flex-expand">
                             <h3>
-                            <a href="#"><b>Ζωντανή συζήτηση</b></a>
+                            <a href="contact.php"><b>Ζωντανή συζήτηση</b></a>
                             </h3>
                             <span>Επικοινωνήστε άμεσα μαζί μας</span>
                         </div>
