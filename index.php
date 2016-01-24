@@ -252,7 +252,7 @@
                             <div class="headline-text">
                                 <a href="contact.php">Ζωντανή συζήτηση</a>
                             </div>
-                            <span>Επικοινωνήστε άμεσα μαζί μας!</span>
+                            <span>Επικοινωνείστε άμεσα μαζί μας!</span>
                         </div>
                         <div><img src="resources/help_desk.jpg" alt="" class="thumbnail-img"></div>
                     </div>
