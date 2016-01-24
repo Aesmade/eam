@@ -79,7 +79,7 @@
                 <tr class="spacer"></tr>
                 <?php while ($stmt->fetch()) { ?>
                 <tr>
-                    <td class="medium-text"><?php echo $title ?></td>
+                    <td class="medium-text"><?php echo '<a href="book.php?isbn=' . $isbn . '">' . $title . '</a>'; ?></td>
                     <td class="medium-text"><?php echo $start_date ?></td>
                     <td class="medium-text"><?php echo $end_date ?></td>
                     <td><button id="1" type="button" class="btn btn-success" onclick="extendBook()">Επέκταση</button></td>
