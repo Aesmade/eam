@@ -66,8 +66,12 @@
     <div class="container">
         <ol class="breadcrumb">
             <li><a href="index.php">Αρχική</a></li>
+            <?php if (isset($searchfor)) { ?>
             <li><a href="search.php">Αναζήτηση</a></li>
             <li><span class="active">Αποτελέσματα</span></li>
+            <?php } else { ?>
+            <li><span class="active">Αναζήτηση</span></li>
+            <?php } ?>
         </ol>
         <div class="box">
             <ul class="nav nav-tabs">
@@ -299,20 +303,18 @@
             <?php
                     }
                 } else {
-                    $authorstmt = $db->prepare('SELECT `Author`.name, `Author`.id FROM `Author`, `Book_Authors` 
-                        WHERE `Book_Authors`.book_isbn = ? AND `Author`.id = `Book_Authors`.author_id');
-                    $libstmt = $db->prepare('SELECT `Library`.name, `Library`.id FROM `Library`, `Books_at_Libraries` 
-                        WHERE `Books_at_Libraries`.book_isbn = ? AND `Library`.id = `Books_at_Libraries`.library_id');
                     while ($stmt->fetch()) {
             ?>
             <div class="search-result row">
-                <div class="col-sm-2"><img src="<?php echo $imgs ?>" alt="" style="height: 100px; widht: 100px"></div>
+                <div class="col-sm-2"><img src="<?php echo $imgs ?>" alt="" class="thumbnail-img"></div>
                 <div class="col-sm-6">
                     <h4>
                         <strong><a href="book.php?isbn=<?php echo $isbn ?>"><?php echo $title ?></a></strong>
                         <div class="flex-container space-between spacing-top">
                             <div>
                                 <div>Συγγραφείς: <?php
+                                    $authorstmt = $db->prepare('SELECT `Author`.name, `Author`.id FROM `Author`, `Book_Authors` 
+                                        WHERE `Book_Authors`.book_isbn = ? AND `Author`.id = `Book_Authors`.author_id');
                                     $authorstmt->bind_param('s', $isbn);
                                     $authorstmt->execute();
                                     $authorstmt->bind_result($authorname, $authorid);
@@ -322,8 +324,11 @@
                                         while ($authorstmt->fetch())
                                             echo ", <a href='search.php?search-type=author&search-terms=$authorname&search-in=0&search-for=all'>$authorname</a>";
                                     }
+                                    $authorstmt->close();
                                 ?></div>
                                 <div>Βιβλιοθήκη: <?php
+                                    $libstmt = $db->prepare('SELECT `Library`.name, `Library`.id FROM `Library`, `Books_at_Libraries` 
+                                        WHERE `Books_at_Libraries`.book_isbn = ? AND `Library`.id = `Books_at_Libraries`.library_id');
                                     $libstmt->bind_param('s', $isbn);
                                     $libstmt->execute();
                                     $libstmt->bind_result($libname, $libid);
@@ -332,6 +337,7 @@
                                         $libname = substr($libname, strlen("Βιβλιοθήκη"));
                                         echo "<a href='library.php?id=$libid'>$libname</a>";
                                     }
+                                    $libstmt->close();
                                 ?>
                                 </div>
                             </div>
@@ -348,8 +354,6 @@
             </div>
             <?php
                     }
-                    $authorstmt->close();
-                    $libstmt->close();
                 }
             ?>
             <hr class="spacing-top" />
