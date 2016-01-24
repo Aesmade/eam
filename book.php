@@ -9,13 +9,13 @@
         $types = array('book' => 'Βιβλίο');
 
         // Query book basic information
-        $query = "SELECT title, description, publication_date, type, imgm FROM `Book` where isbn = ?";
+        $query = "SELECT title, description, language, publication_date, type, imgm FROM `Book` where isbn = ?";
         $stmt = $db->prepare($query);
         $stmt->bind_param('s', $book['isbn']);
         $stmt->execute();
         $stmt->store_result();
         if ($stmt->num_rows == 1) {
-            $stmt->bind_result($book['title'], $book['description'], $book['pub_date'], $book['type'], $book['imgm']);
+            $stmt->bind_result($book['title'], $book['description'], $book['language'], $book['pub_date'], $book['type'], $book['imgm']);
             $stmt->fetch();
             foreach ($book as $key => $value) {
                 $book[$key] = htmlspecialchars($value);
@@ -26,8 +26,8 @@
 
         // Query book's authors
         $book['authors'] = array();
-        $query = "SELECT a.name FROM `Book_Authors` as ba, `Author` as a " .
-            "where ba.book_isbn = ? and ba.author_id = a.id";
+        $query = 'SELECT a.name FROM `Book_Authors` as ba, `Author` as a
+            WHERE ba.book_isbn = ? and ba.author_id = a.id';
         $stmt = $db->prepare($query);
         $stmt->bind_param('s', $book['isbn']);
         $stmt->execute();
@@ -39,8 +39,8 @@
 
         // Query book's categories
         $book['categories'] = array();
-        $query = "SELECT c.name FROM `Books_by_Category` as bc, `Category` as c " .
-            "where bc.book_isbn = ? and bc.category_id = c.id";
+        $query = 'SELECT c.name FROM `Books_by_Category` as bc, `Category` as c
+            WHERE bc.book_isbn = ? and bc.category_id = c.id';
         $stmt = $db->prepare($query);
         $stmt->bind_param('s', $book['isbn']);
         $stmt->execute();
@@ -52,8 +52,8 @@
 
         // Query which libraries loan the book
         $book['quantities'] = array();
-        $query = "SELECT l.id, l.name, bl.quantity FROM `Library` as l, `Books_at_Libraries` as bl " .
-            "where bl.book_isbn = ? and bl.library_id = l.id";
+        $query = 'SELECT l.id, l.name, bl.quantity FROM `Library` as l, `Books_at_Libraries` as bl
+            WHERE bl.book_isbn = ? and bl.library_id = l.id';
         $stmt = $db->prepare($query);
         $stmt->bind_param('s', $book['isbn']);
         $stmt->execute();
@@ -98,10 +98,6 @@
             <div class="row">
                 <div class="col-sm-9">
                     <div class="row multiple-rows">
-                        <div class="text-right col-sm-3 col-md-2"><strong>Γλώσσα</strong></div>
-                        <div class="col-sm-9 col-md-10">Αγγλικά</div>
-                    </div>
-                    <div class="row multiple-rows">
                         <div class="text-right col-sm-3 col-md-2"><strong>Συγγραφείς</strong></div>
                         <div class="col-sm-9 col-md-10">
 <?php
@@ -113,12 +109,16 @@
                         </div>
                     </div>
                     <div class="row multiple-rows">
+                        <div class="text-right col-sm-3 col-md-2"><strong>Περιγραφή</strong></div>
+                        <div class="col-sm-9 col-md-10"><?php echo $book['description'] ?></div>
+                    </div>
+                    <div class="row multiple-rows">
                         <div class="text-right col-sm-3 col-md-2"><strong>Δημοσίευση</strong></div>
                         <div class="col-sm-9 col-md-10"><?php echo $book['pub_date'] ?></div>
                     </div>
                     <div class="row multiple-rows">
-                        <div class="text-right col-sm-3 col-md-2"><strong>Περιγραφή</strong></div>
-                        <div class="col-sm-9 col-md-10"><?php echo $book['description'] ?></div>
+                        <div class="text-right col-sm-3 col-md-2"><strong>Γλώσσα</strong></div>
+                        <div class="col-sm-9 col-md-10"><?php echo $book['language'] ?></div>
                     </div>
                     <div class="row multiple-rows">
                         <div class="text-right col-sm-3 col-md-2"><strong>Κατηγορίες</strong></div>

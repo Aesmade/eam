@@ -200,22 +200,24 @@
         <div class="row" style="display: flex">
             <div class="col-sm-7">
                 <div class="box">
-                    <div class="box-header">Βιβλιοθήκες</div>
+                    <div class="box-header big-text">Βιβλιοθήκες</div>
                     <?php
                         foreach ($libs as $lib) {
                     ?>
                     <div class="row" style="padding: 5px">
                         <div class="col-sm-3">
-                            <img src="<?php echo $lib['img'] ?>" alt="" style="height: 100px; width:100px; image-fit:contain;">
+                            <img src="<?php echo $lib['img'] ?>" alt="" class="thumbnail-img">
                         </div>
-                        <div class="col-sm-9">
-                            <h4><a href="library.php?id=<?php echo $lib['id'] ?>"><b><?php echo $lib['name'] ?></b></a></h4>
+                        <div class="col-sm-9 flex-container vertical-align" style="height: 100px;">
                             <div>
-                                <span>Σήμερα: <strong><?php echo substr($lib['open'], 0, 5) ?> - <?php echo substr($lib['close'], 0, 5) ?></strong></span>
+                            <div class="big-text"><a href="library.php?id=<?php echo $lib['id'] ?>"><?php echo $lib['name'] ?></a></div>
+                            <div>
+                                <span>Σήμερα: <span class=""><?php echo substr($lib['open'], 0, 5) ?> - <?php echo substr($lib['close'], 0, 5) ?></span></span>
                             </div>
                             <div>
                                 <span><?php echo $lib['address'] ?></span>
                                 <div class="pull-right"><span class="glyphicon glyphicon-earphone"></span> <?php echo $lib['phone'] ?></div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -227,41 +229,43 @@
                             }
                         }
                     ?>
-                    <div class="box-footer"><a href="libraries_calendar.php">Προβολή όλων</a></div>
+                    <div class="box-footer footer-text">
+                        <div class="row">
+                            <div class="col-sm-6"><a href="libraries_calendar.php">Προβολή όλων</a></div>
+                            <div class="col-sm-6"><a href="libraries_map.php" class="pull-right">Προβολή σε χάρτη</a></div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-5">
                 <div class="box">
-                    <div class="box-header">Ανακοινώσεις</div>
-                    <div class="flex-container">
-                        <div class="flex-expand">
-                            <h3>
-                                <a href="#"><b>Πιο πρόσφατος τίτλος</b></a>
-                            </h3><span>Κείμενο</span></div>
-                        <div><img src="resources/img.gif" alt=""></div>
-                    </div>
+                    <div class="box-header headline-text">Ανακοινώσεις</div>
+                        <div class="big-text">
+                            <a href="#">Εργασίες Συντήρησης</a>
+                        </div>
+                        <span>Εξαιτίας εργασιών συντήρησης ορισμένα τμήματα του ιστοτόπου δεν λειτουργούν.</span>
                     <div class="box-footer"><a href="#">Προβολή όλων</a></div>
                 </div>
                 <div class="box">
                     <div class="flex-container">
-                        <div class="flex-expand">
-                            <h3>
-                            <a href="contact.php"><b>Ζωντανή συζήτηση</b></a>
-                            </h3>
-                            <span>Επικοινωνήστε άμεσα μαζί μας</span>
+                        <div class="flex-container flex-expand vertical-align">
+                            <div class="headline-text">
+                                <a href="contact.php">Ζωντανή συζήτηση</a>
+                            </div>
+                            <span>Επικοινωνήστε άμεσα μαζί μας!</span>
                         </div>
-                        <div><img src="resources/img.gif" alt=""></div>
+                        <div><img src="resources/help_desk.jpg" alt="" class="thumbnail-img"></div>
                     </div>
                 </div>
                 <div class="box">
                     <div class="flex-container">
-                        <div class="flex-expand">
-                            <h3>
-                            <a href="#"><b>Θέσεις εργασίας</b></a>
-                            </h3>
-                            <span>Στείλτε μας το βιογραφικό σας</span>
+                        <div class="flex-container flex-expand vertical-align">
+                            <div class="headline-text">
+                                <a href="#">Θέσεις εργασίας</a>
+                            </div>
+                            <span>Στείλτε μας το βιογραφικό σας!</span>
                         </div>
-                        <div><img src="resources/img.gif" alt=""></div>
+                        <div><img src="resources/librarian.jpg" alt="" class="thumbnail-img"></div>
                     </div>
                 </div>
             </div>

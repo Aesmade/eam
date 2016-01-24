@@ -45,6 +45,11 @@ hr {
     display: flex;
 }
 
+.flex-container.vertical-align {
+    justify-content: center;
+    flex-flow: column;
+}
+
 .flex-container .flex-expand {
     flex-grow: 1;
 }
@@ -197,6 +202,32 @@ ol.breadcrumb {
 
 .search-result:nth-child(even) {
     background-color: #efefef;
+}
+
+.headline-text {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.big-text {
+    font-size: 18px;
+}
+
+.medium-text {
+    font-size: 16px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.thumbnail-img {
+    display: block;
+    height: 100px;
+    width: 100px;
+    border-radius: 4px;
+    margin: 0 auto;
 }
 
 /*# sourceMappingURL=main.css.map */
