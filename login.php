@@ -1,9 +1,8 @@
 <?php
-    include 'include/php/db_connect.php';
-
     session_start();
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        include 'include/php/db_connect.php';
         $email = $_POST['email'];
         $password = $_POST['password'];
         $md5_password = md5($password);

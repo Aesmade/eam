@@ -115,25 +115,25 @@
                         <span class="glyphicon glyphicon-check form-control-feedback nodisplay"></span>
                         <span class="glyphicon glyphicon-remove form-control-feedback nodisplay"></span></div>
                 </div>
-<?php
-    if ($errors['EMPTY_VALUES_ERROR']) {
-?>
+                <?php
+                    if ($errors['EMPTY_VALUES_ERROR']) {
+                ?>
                 <div role="alert" class="alert alert-danger col-sm-offset-4 col-sm-8"><strong>Σφάλμα!</strong> Συμπληρώστε τα παραπάνω πεδία!</div>
-<?php
-    } if ($errors['BAD_EMAIL_ERROR']) {
-?>
+                <?php
+                    } if ($errors['BAD_EMAIL_ERROR']) {
+                ?>
                 <div role="alert" class="alert alert-danger col-sm-offset-4 col-sm-8"><strong>Σφάλμα!</strong> Το e-mail δεν έχει σωστή μορφή!</div>
-<?php
-    } if ($errors['EMAIL_EXISTS_ERROR']) {
-?>
+                <?php
+                    } if ($errors['EMAIL_EXISTS_ERROR']) {
+                ?>
                 <div role="alert" class="alert alert-danger col-sm-offset-4 col-sm-8"><strong>Σφάλμα!</strong> Το email χρησιμοποιείται ήδη!</div>
-<?php
-    } if ($errors['PASSWORDS_DIFFER_ERROR']) {
-?>
+                <?php
+                    } if ($errors['PASSWORDS_DIFFER_ERROR']) {
+                ?>
                 <div role="alert" class="alert alert-danger col-sm-offset-4 col-sm-8"><strong>Σφάλμα!</strong> Οι κωδικοί δεν είναι ίδιοι!</div>
-<?php
-    }
-?>
+                <?php
+                    }
+                ?>
                 <div class="text-right">
                     <input type="submit" name="register" id="submit-button" class="btn btn-primary btn-lg" value="Εγγραφή">
                 </div>
