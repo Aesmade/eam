@@ -80,7 +80,7 @@
                             <li class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle">Αναζήτηση<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="index.php">Απλή αναζήτηση</a></li>
+                                    <li><a href="search.php">Απλή αναζήτηση</a></li>
                                     <li><a href="#">Προχωρημένη αναζήτηση</a></li>
                                     <li><a href="#">Οδηγοί αναζήτησης</a></li>
                                 </ul>
@@ -98,7 +98,7 @@
                                 <a aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Βιβλιοθήκες<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="libraries_calendar.php">Λίστα βιβλιοθηκών</a></li>
-                                    <li><a href="#">Χάρτης βιβλιοθηκών</a></li>
+                                    <li><a href="libraries-map.php">Χάρτης βιβλιοθηκών</a></li>
                                     <li><a href="#">Για ΑΜΕΑ</a></li>
                                     <li><a href="#">Για βιβλιοθηκονόμους</a></li>
                                 </ul>
@@ -106,8 +106,7 @@
                             <li class="dropdown">
                                 <a aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Επικοινωνία<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="contact.php">Αποστολή e-mail</a></li>
-                                    <li><a href="contact.php">Ζωντανή επικοινωνία</a></li>
+                                    <li><a href="contact.php">Eπικοινωνία</a></li>
                                     <li><a href="#">Ανακοινώσεις</a></li>
                                     <li><a href="#">Προσωπικό</a></li>
                                     <li><a href="#">Θέσεις εργασίας</a></li>

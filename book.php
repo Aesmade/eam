@@ -6,7 +6,7 @@
 
     if (isset($_GET['isbn'])) {
         $book['isbn'] = $_GET['isbn'];
-        $types = array('book' => 'Βιβλίο');
+        $types = array('book' => 'Βιβλίο', 'magazine' => 'Περιοδικό', 'article' => 'Άρθρο', 'polymorphic' => 'Πολυμορφικό Περιεχόμενο');
 
         // Query book basic information
         $query = "SELECT title, description, language, publication_date, type, imgm FROM `Book` where isbn = ?";
@@ -20,6 +20,14 @@
             foreach ($book as $key => $value) {
                 $book[$key] = htmlspecialchars($value);
             }
+        } else {
+            // If book doesn't exist.
+            $stmt->free_result();
+            $stmt->close();
+            $db->close();
+            // Redirect to the page not found page.
+            header('Location: page_not_found.php');
+            exit();
         }
         $stmt->free_result();
         $stmt->close();
@@ -102,9 +110,9 @@
                         <div class="col-sm-9 col-md-10">
 <?php
     for ($i = 0; $i < count($book['authors']) - 1; $i += 1) {
-        echo '<a href="#">' . $book['authors'][$i] . '</a>' . ' | ';
+        echo '<a href="search.php?search-type=author&search-terms=' . $book['authors'][$i] . '&search-in=0&search-for=all">' . $book['authors'][$i] . '</a>' . ' | ';
     }
-    echo '<a href="#">' . $book['authors'][$i] . '</a>';
+    echo '<a href="search.php?search-type=author&search-terms=' . $book['authors'][$i] . '&search-in=0&search-for=all">' . $book['authors'][$i] . '</a>';
 ?>
                         </div>
                     </div>
