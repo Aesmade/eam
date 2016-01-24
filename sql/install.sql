@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 21, 2016 at 02:34 AM
+-- Generation Time: Jan 24, 2016 at 07:25 PM
 -- Server version: 5.6.27-0ubuntu0.15.04.1
 -- PHP Version: 5.6.4-4ubuntu6.4
 
@@ -27,9 +27,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `Author` (
-  `id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `name` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `Author`
@@ -37,7 +37,9 @@ CREATE TABLE IF NOT EXISTS `Author` (
 
 INSERT INTO `Author` (`id`, `name`) VALUES
 (1, 'Brian Kernighan'),
-(2, 'Dennis Ritchie');
+(2, 'Dennis Ritchie'),
+(3, 'Tozer'),
+(4, 'Metin Bektas');
 
 -- --------------------------------------------------------
 
@@ -48,6 +50,7 @@ INSERT INTO `Author` (`id`, `name`) VALUES
 CREATE TABLE IF NOT EXISTS `Book` (
   `isbn` varchar(32) CHARACTER SET utf8 NOT NULL,
   `title` varchar(128) CHARACTER SET utf8 NOT NULL,
+  `language` varchar(32) CHARACTER SET utf8 NOT NULL,
   `description` text CHARACTER SET utf8 NOT NULL,
   `publication_date` date NOT NULL,
   `type` enum('book','magazine','paper') NOT NULL,
@@ -59,9 +62,11 @@ CREATE TABLE IF NOT EXISTS `Book` (
 -- Dumping data for table `Book`
 --
 
-INSERT INTO `Book` (`isbn`, `title`, `description`, `publication_date`, `type`, `imgs`, `imgm`) VALUES
-('123-77712832', 'The C Programming Language', 'The authors present the complete guide to ANSI standard C language programming. Written by the developers of C, this new version helps readers keep up with the finalized ANSI standard for C while showing how to take advantage of C''s rich set of operators, economy of expression, improved control flow, and data structures. The 2/E has been completely rewritten with additional examples and problem sets to clarify the implementation of difficult language constructs. For years, C programmers have let K&R guide them to building well-structured and efficient programs. Now this same help is available to those working with ANSI compilers.', '1988-04-01', 'book', 'http://ecx.images-amazon.com/images/I/41qX6YdIJ7L._AA160_.jpg', 'http://ecx.images-amazon.com/images/I/41qX6YdIJ7L._SX379_BO1,204,203,200_.jpg'),
-('9782974329-23', 'Algebra - The Very Basics', 'If you''re looking for a gentle introduction to basic mathematics, look no further. This book picks you up at the very beginning and guides you through the foundations of algebra using lots of examples and no-nonsense explanations. Each chapter contains well-chosen exercises as well as all the solutions. No prior knowledge is required. ', '2014-01-06', 'book', 'http://ecx.images-amazon.com/images/I/51oESGdCPbL._AA160_.jpg', 'http://ecx.images-amazon.com/images/I/51oESGdCPbL._SX312_BO1,204,203,200_.jpg');
+INSERT INTO `Book` (`isbn`, `title`, `language`, `description`, `publication_date`, `type`, `imgs`, `imgm`) VALUES
+('013937681X', 'The Unix Programming Environment', 'Αγγλικά', 'Designed for first-time and experienced users, this book describes the UNIX® programming environment and philosophy in detail. Readers will gain an understanding not only of how to use the system, its components, and the programs, but also how these fit into the total environment. ', '1983-07-24', 'book', 'http://ecx.images-amazon.com/images/I/41HMOpkLA2L._SX383_BO1,204,203,200_.jpg', 'http://ecx.images-amazon.com/images/I/41HMOpkLA2L._SX383_BO1,204,203,200_.jpg'),
+('123-77712832', 'The C Programming Language', 'Αγγλικά', 'The authors present the complete guide to ANSI standard C language programming. Written by the developers of C, this new version helps readers keep up with the finalized ANSI standard for C while showing how to take advantage of C''s rich set of operators, economy of expression, improved control flow, and data structures. The 2/E has been completely rewritten with additional examples and problem sets to clarify the implementation of difficult language constructs. For years, C programmers have let K&R guide them to building well-structured and efficient programs. Now this same help is available to those working with ANSI compilers.', '1988-04-01', 'book', 'http://ecx.images-amazon.com/images/I/41qX6YdIJ7L._SX379_BO1,204,203,200_.jpg', 'http://ecx.images-amazon.com/images/I/41qX6YdIJ7L._SX379_BO1,204,203,200_.jpg'),
+('1503379744A', 'The Pursuit of God', 'Αγγλικά', '“As the heart panteth after the water brooks, so panteth my soul after thee, O God.” This thirst for an intimate relationship with God, claims A.W. Tozer, is not for a select few, but should be the experience of every follower of Christ. But, he asserts, it is all too rare when believers have become conditioned by tradition to accept standards of mediocrity, and the church struggles with formality and worldliness.', '2014-10-22', 'book', 'http://ecx.images-amazon.com/images/I/41NbdDuf0EL._SX331_BO1,204,203,200_.jpg', 'http://ecx.images-amazon.com/images/I/41NbdDuf0EL._SX331_BO1,204,203,200_.jpg'),
+('9782974329-23', 'Algebra - The Very Basics', 'Αγγλικά', 'If you''re looking for a gentle introduction to basic mathematics, look no further. This book picks you up at the very beginning and guides you through the foundations of algebra using lots of examples and no-nonsense explanations. Each chapter contains well-chosen exercises as well as all the solutions. No prior knowledge is required. ', '2014-01-06', 'book', 'http://ecx.images-amazon.com/images/I/51oESGdCPbL._SX312_BO1,204,203,200_.jpg', 'http://ecx.images-amazon.com/images/I/51oESGdCPbL._SX312_BO1,204,203,200_.jpg');
 
 -- --------------------------------------------------------
 
@@ -80,7 +85,9 @@ CREATE TABLE IF NOT EXISTS `Books_at_Libraries` (
 --
 
 INSERT INTO `Books_at_Libraries` (`book_isbn`, `library_id`, `quantity`) VALUES
+('013937681X', 1, 5),
 ('123-77712832', 1, 4),
+('1503379744A', 3, 2),
 ('9782974329-23', 1, 3);
 
 -- --------------------------------------------------------
@@ -118,8 +125,11 @@ CREATE TABLE IF NOT EXISTS `Book_Authors` (
 --
 
 INSERT INTO `Book_Authors` (`book_isbn`, `author_id`) VALUES
+('013937681X', 1),
 ('123-77712832', 1),
-('123-77712832', 2);
+('123-77712832', 2),
+('1503379744A', 3),
+('9782974329-23', 4);
 
 -- --------------------------------------------------------
 
@@ -134,14 +144,15 @@ CREATE TABLE IF NOT EXISTS `Book_Loans` (
   `library_id` int(11) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Book_Loans`
 --
 
 INSERT INTO `Book_Loans` (`id`, `user_id`, `book_isbn`, `library_id`, `start_date`, `end_date`) VALUES
-(1, 1, '123-77712832', 1, '2016-01-12', '2016-05-12');
+(1, 1, '123-77712832', 1, '2016-01-12', '2016-05-12'),
+(2, 1, '013937681X', 1, '2016-01-25', '2016-02-10');
 
 -- --------------------------------------------------------
 
@@ -188,9 +199,9 @@ CREATE TABLE IF NOT EXISTS `Library` (
 --
 
 INSERT INTO `Library` (`id`, `name`, `description`, `address`, `latitude`, `longitude`, `telephone`, `email`, `opening_time`, `closing_time`, `img`) VALUES
-(1, 'Βιβλιοθήκη Σχολής Θετικών Επιστημών', 'Η Συλλογή καλύπτει στο μεγαλύτερο μέρος της τις εξής θεματικές κατηγορίες: Βιολογία, Γεωλογία και Γεωπεριβάλλον, Μαθηματικά, Πληροφορική και Τηλεπικοινωνίες, Φαρμακευτική, Φυσική και Χημεία.\r\n\r\n', 'Πανεπιστημιούπολη, Ιλίσια, 157 84 Αθήνα', 37.967259, 23.781945, ' 210-726545', 'thet@lib.uoa.gr', '09:00:00', '21:00:00', 'http://www.getbusy.gr/Content/ContentFiles/02_vivlio.jpg'),
+(1, 'Βιβλιοθήκη Θετικών Επιστημών', 'Η Συλλογή καλύπτει στο μεγαλύτερο μέρος της τις εξής θεματικές κατηγορίες: Βιολογία, Γεωλογία και Γεωπεριβάλλον, Μαθηματικά, Πληροφορική και Τηλεπικοινωνίες, Φαρμακευτική, Φυσική και Χημεία.\r\n\r\n', 'Πανεπιστημιούπολη, Ιλίσσια', 37.967259, 23.781945, ' 210-726545', 'thet@lib.uoa.gr', '09:00:00', '21:00:00', 'http://www.getbusy.gr/Content/ContentFiles/02_vivlio.jpg'),
 (2, 'Βιβλιοθήκη Οικονομικών Επιστημών', 'Η συλλογή περιλαμβάνει 22000 τίτλους βιβλίων που χρονολογούνται από τις αρχές του 20 αιώνα έως σήμερα. Διαθέτει 170 τίτλους περιοδικών, 22 από τους οποίους αποτελούν τρέχουσες συνδρομές.  Επίσης διατίθεται  μεγάλος αριθμός τίτλων στις βάσεις των Ηλεκτρονικών  Περιοδικών του Πανεπιστημίου Αθηνών. ', 'Ναυαρίνου 13Α', 37.983522, 23.735471, '210-7834723', 'economy@lib.uoa.gr', '09:00:00', '18:00:00', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Melk_-_Abbey_-_Library.jpg/1280px-Melk_-_Abbey_-_Library.jpg'),
-(3, 'Βιβλιοθήκη Θεολογικής Σχολής', 'Η συλλογή της Βιβλιοθήκης καλύπτει τους παρακάτω τομείς: Θεολογία, Θρησκειολογία, Εκκλησιαστικη Ιστορία, Ιστορία Ελλάδος, Ιεραποστολική, Ποιμαντική, Κατηχητική, Κανονικό Δίκαιο, Φιλοσοφία, Δογματική, Χριστιανική Κοινωνιολογία, Παλαιογραφία, Φιλοσοφία, Ψυχολογία, Χριστιανική Αρχαιολογία.', 'Πανεπιστημιούπολη, Ανω Ιλίσσια, 15 771', 37.968994, 23.776117, '210-5623132', 'theology@lib.uoa.gr', '08:00:00', '16:00:00', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Bibl._Malatestiana_3.jpg/800px-Bibl._Malatestiana_3.jpg');
+(3, 'Βιβλιοθήκη Θεολογικής Σχολής', 'Η συλλογή της Βιβλιοθήκης καλύπτει τους παρακάτω τομείς: Θεολογία, Θρησκειολογία, Εκκλησιαστικη Ιστορία, Ιστορία Ελλάδος, Ιεραποστολική, Ποιμαντική, Κατηχητική, Κανονικό Δίκαιο, Φιλοσοφία, Δογματική, Χριστιανική Κοινωνιολογία, Παλαιογραφία, Φιλοσοφία, Ψυχολογία, Χριστιανική Αρχαιολογία.', 'Πανεπιστημιούπολη, Ιλίσσια', 37.968994, 23.776117, '210-5623132', 'theology@lib.uoa.gr', '08:00:00', '16:00:00', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Bibl._Malatestiana_3.jpg/800px-Bibl._Malatestiana_3.jpg');
 
 -- --------------------------------------------------------
 
@@ -204,15 +215,15 @@ CREATE TABLE IF NOT EXISTS `User` (
   `last_name` varchar(30) CHARACTER SET utf8 NOT NULL,
   `email` varchar(256) CHARACTER SET utf8 NOT NULL,
   `password` varchar(32) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `User`
 --
 
 INSERT INTO `User` (`id`, `first_name`, `last_name`, `email`, `password`) VALUES
-(49, 'test', 'test', 'test@test.gr', '1a1dc91c907325c69271ddf0c944bc72'),
-(50, 'Γιαννης', 'Γιαννης', 'giannis@giannis.gr', '1a1dc91c907325c69271ddf0c944bc72');
+(1, 'test', 'test', 'test@test.gr', '1a1dc91c907325c69271ddf0c944bc72'),
+(2, 'Γιαννης', 'Γιαννης', 'giannis@giannis.gr', '1a1dc91c907325c69271ddf0c944bc72');
 
 --
 -- Indexes for dumped tables
@@ -243,6 +254,12 @@ ALTER TABLE `Books_by_Category`
  ADD PRIMARY KEY (`book_isbn`,`category_id`);
 
 --
+-- Indexes for table `Book_Authors`
+--
+ALTER TABLE `Book_Authors`
+ ADD PRIMARY KEY (`book_isbn`,`author_id`);
+
+--
 -- Indexes for table `Book_Loans`
 --
 ALTER TABLE `Book_Loans`
@@ -271,10 +288,15 @@ ALTER TABLE `User`
 --
 
 --
+-- AUTO_INCREMENT for table `Author`
+--
+ALTER TABLE `Author`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT for table `Book_Loans`
 --
 ALTER TABLE `Book_Loans`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `Category`
 --
@@ -289,7 +311,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 -- AUTO_INCREMENT for table `User`
 --
 ALTER TABLE `User`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=51;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
