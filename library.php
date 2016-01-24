@@ -20,6 +20,14 @@
             foreach ($lib as $key => $value) {
                 $lib[$key] = htmlspecialchars($value);
             }
+        } else {
+            // If library doesn't exist.
+            $stmt->free_result();
+            $stmt->close();
+            $db->close();
+            // Redirect to the page not found page.
+            header('Location: page_not_found.php');
+            exit();
         }
         $stmt->free_result();
         $stmt->close();
