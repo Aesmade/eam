@@ -2,13 +2,10 @@
     include 'include/php/db_connect.php';
     include 'include/php/helpers.php';
     include 'include/php/queries/query_libraries.php';
+    include 'include/php/header.php';
 
     $libs = all_libraries($db);
     $db->close();
-
-    // include header.php and library.css
-    $styles = array('%OTHER_STYLESHEET_1%' => 'rel="stylesheet" href="styles/index.css"');
-    echo replace_contents('include/php/header.php', $styles);
 ?>
     <div class="container">
         <div class="box">

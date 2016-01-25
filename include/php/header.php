@@ -84,8 +84,8 @@
                     </div>
                     <div class="col-sm-2 flex-container vertical-align" style="height: 100%;">
                         <div style="padding: 10px 15px;">
-                            <a href=""><img src="resources/en.jpg" class="pull-right" style="padding: 0 5px;"></img></a>
-                            <a href=""><img src="resources/gr.png" class="pull-right" style="padding: 0 5px;"></img></a>
+                            <a href=""><img src="resources/en.jpg" class="pull-right" style="padding: 0 5px;"></a>
+                            <a href=""><img src="resources/gr.png" class="pull-right" style="padding: 0 5px;"></a>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@
                                 <a aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Βιβλιοθήκες<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="libraries_calendar.php">Λίστα βιβλιοθηκών</a></li>
-                                    <li><a href="libraries-map.php">Χάρτης βιβλιοθηκών</a></li>
+                                    <li><a href="libraries_map.php">Χάρτης βιβλιοθηκών</a></li>
                                     <li><a href="#">Για ΑΜΕΑ</a></li>
                                     <li><a href="#">Για βιβλιοθηκονόμους</a></li>
                                 </ul>
