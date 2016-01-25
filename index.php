@@ -199,7 +199,7 @@
         </div>
         <div class="row" style="display: flex">
             <div class="col-sm-7">
-                <div class="box">
+                <div id="libraries-div" class="box">
                     <div class="box-header big-text">Βιβλιοθήκες</div>
                     <?php
                         foreach ($libs as $lib) {
@@ -239,7 +239,7 @@
             </div>
             <div class="col-sm-5">
                 <div class="box">
-                    <div class="box-header headline-text">Ανακοινώσεις</div>
+                    <div class="box-header big-text">Ανακοινώσεις</div>
                         <div class="big-text">
                             <a href="#">Εργασίες Συντήρησης</a>
                         </div>

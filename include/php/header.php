@@ -18,9 +18,13 @@
     <link %OTHER_STYLESHEET_2% />
 
     <style type="text/css">
-    .highlight-day tr > td:nth-child(<?php echo date('N') + 1 ?>) {
-        background-color: #CCFF00;
-    }
+        .highlight-day tr > td:nth-child(<?php echo date('N') + 1 ?>) {
+            background-color: #FFFD6C;
+        }
+        #logo-div {
+            color: white;
+            background-color: #5889C2;
+        }
     </style>
 
     <!-- JQuery -->
@@ -70,7 +74,23 @@
     <div class="body-content">
         <div class="container">
             <!-- Header start -->
-            <nav class="navbar navbar-default">
+            <div id="logo-div" class="container-fluid">
+                <div class="row" style="height: 65px;">
+                    <div class="col-sm-10">
+                        <div style="padding: 10px 15px;">
+                        Βιβλιοθήκες και Υπηρεσίες Πληροφόρησης<br>
+                        Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών
+                        </div>
+                    </div>
+                    <div class="col-sm-2 flex-container vertical-align" style="height: 100%;">
+                        <div style="padding: 10px 15px;">
+                            <a href=""><img src="resources/en.jpg" class="pull-right" style="padding: 0 5px;"></img></a>
+                            <a href=""><img src="resources/gr.png" class="pull-right" style="padding: 0 5px;"></img></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <nav class="navbar navbar-inverse" style="color: white">
                 <div class="container-fluid">
                     <div class="navbar-collapse collapse">
                         <ul class="nav navbar-nav">
@@ -86,7 +106,7 @@
                                 </ul>
                             </li>
                             <li class="dropdown">
-                                <a aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Δανεισμός-Παραγγελία<span class="caret"></span></a>
+                                <a aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="dropdown-toggle">Δανεισμοί-Άρθρα<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                     <li><a href="#">Κανονισμοί δανεισμού</a></li>
                                     <li><a href="#">Διαδανεισμός βιβλίου</a></li>
