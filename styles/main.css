@@ -36,6 +36,10 @@ span {
     color: #C6C6C6;
 }
 
+li.dropdown {
+    cursor: pointer;
+}
+
 hr {
     margin-top: 10px;
     margin-bottom: 10px;
