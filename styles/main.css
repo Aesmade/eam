@@ -151,15 +151,15 @@ ol.breadcrumb {
 }
 
 .modal {
-  overflow-y: auto;
+    overflow-y: auto;
 }
 
 .modal-open {
-  overflow: auto;
+    overflow: hidden;
 }
 
 .modal-open[style] {
-  padding-right: 0px !important;
+    padding-right: 0px !important;
 }
 
 .modal-body .form-group.has-feedback .form-control-feedback {
@@ -210,6 +210,10 @@ ol.breadcrumb {
 
 .danger-tooltip + .tooltip.bottom .tooltip-arrow {
     border-bottom-color: #A00000;
+}
+
+.danger-tooltip + .tooltip.top .tooltip-arrow {
+    border-top-color: #A00000;
 }
 
 .search-result {

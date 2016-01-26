@@ -75,7 +75,12 @@
         <div class="container">
             <!-- Header start -->
             <div id="logo-div" class="container-fluid" style="height: 65px;">
-                <div class="col-sm-10">
+                <div class="col-sm-1 flex-container vertical-align" style="height: 100%;">
+                    <div style="padding: 10px 15px;">
+                        <img src="resources/logo.png" style="height: 50px; width: 50px;">
+                    </div>
+                </div>
+                <div class="col-sm-9">
                     <div style="padding: 10px 15px;">
                     Βιβλιοθήκες και Υπηρεσίες Πληροφόρησης<br>
                     Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών
