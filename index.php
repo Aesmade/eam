@@ -2,13 +2,10 @@
     include 'include/php/db_connect.php';
     include 'include/php/helpers.php';
     include 'include/php/queries/query_libraries.php';
+    include 'include/php/header.php';
 
     $libs = all_libraries($db);
     $db->close();
-
-    // include header.php and library.css
-    $styles = array('%OTHER_STYLESHEET_1%' => 'rel="stylesheet" href="styles/index.css"');
-    echo replace_contents('include/php/header.php', $styles);
 ?>
     <div class="container">
         <div class="box">
@@ -199,7 +196,7 @@
         </div>
         <div class="row" style="display: flex">
             <div class="col-sm-7">
-                <div class="box">
+                <div id="libraries-div" class="box">
                     <div class="box-header big-text">Βιβλιοθήκες</div>
                     <?php
                         foreach ($libs as $lib) {
@@ -239,7 +236,7 @@
             </div>
             <div class="col-sm-5">
                 <div class="box">
-                    <div class="box-header headline-text">Ανακοινώσεις</div>
+                    <div class="box-header big-text">Ανακοινώσεις</div>
                         <div class="big-text">
                             <a href="#">Εργασίες Συντήρησης</a>
                         </div>

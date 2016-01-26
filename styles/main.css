@@ -28,6 +28,14 @@ span {
     font-size: 15px;
 }
 
+.navbar {
+    border-radius: 0 0 4px 4px;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #C6C6C6;
+}
+
 hr {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -97,6 +105,11 @@ hr {
 .index-search label,
 .index-search button {
     margin: 0px 10px;
+}
+
+#libraries-div.box .box-header {
+    background-color: #F6993F;
+    border-radius: 5px 5px 0 0;
 }
 
 .hor-separator {
