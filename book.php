@@ -166,7 +166,12 @@
                         <div class="row multiple-rows vertical-align">
                             <div class="col-sm-6"><a href="library.php?id=<?php echo $lib_books[0]?>"><?php echo $lib_books[1]?></a></div>
                             <div class="col-sm-3">Διαθέσιμα <?php echo $lib_books[3]?> από <?php echo $lib_books[2]?></div>
-                            <div class="col-sm-3"><button class="btn btn-primary">Δανεισμός</button></div>
+                            <div class="col-sm-3"><button class="btn <?php
+                            if (!isset($_SESSION['user']))
+                                echo 'btn-default disabled" data-toggle="tooltip" title="Συνδεθείτε για να ενεργοποιηθεί ο δανεισμός"';
+                            else
+                                echo 'btn-primary"';
+                            ?>>Δανεισμός</button></div>
                         </div>
 <?php
     }
@@ -267,6 +272,8 @@
                     }, 500);
                 }
             });
+
+        $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
 <?php
