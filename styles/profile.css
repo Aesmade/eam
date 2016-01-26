@@ -69,8 +69,10 @@ tr.spacer {
     border-top: none !important;
 }
 
-.confirm-align {
+.confirm-align-background-color {
     text-align: left;
+    background-color: #009933;
+    color: white;
 }
 
 .confirm-size-margin-bott {
@@ -95,8 +97,10 @@ tr.spacer {
     margin-right: 5px;
 }
 
-.margin-top {
-    margin-top: 80px;
+.margin-top-bott {
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
+
 
 /*# sourceMappingURL=main.css.map */
