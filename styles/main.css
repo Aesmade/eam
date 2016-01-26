@@ -212,6 +212,10 @@ ol.breadcrumb {
     border-bottom-color: #A00000;
 }
 
+.danger-tooltip + .tooltip.top .tooltip-arrow {
+    border-top-color: #A00000;
+}
+
 .search-result {
     padding-top: 15px;
     padding-bottom: 15px;

@@ -168,7 +168,7 @@
                             <div class="col-sm-3">Διαθέσιμα <?php echo $lib_books[3]?> από <?php echo $lib_books[2]?></div>
                             <div class="col-sm-3"><button class="btn <?php
                             if (!isset($_SESSION['user']))
-                                echo 'btn-default disabled" data-toggle="tooltip" title="Συνδεθείτε για να ενεργοποιηθεί ο δανεισμός"';
+                                echo 'btn-default disabled danger-tooltip" data-toggle="tooltip" title="Συνδεθείτε ώστε να ενεργοποιηθεί η δυνατότητα δανεισμού!"';
                             else
                                 echo 'btn-primary"';
                             ?>>Δανεισμός</button></div>
