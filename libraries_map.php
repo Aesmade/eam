@@ -28,12 +28,34 @@
                 zoom: 8
             });
             
+            
+
+
             <?php foreach($libs as $lib) { ?>
-            point = new google.maps.LatLng({lat: <?php echo $lib["lat"] ?>, lng: <?php echo $lib["lon"] ?>});
+            point = new google.maps.LatLng({lat: <?php echo $lib['lat'] ?>, lng: <?php echo $lib['lon'] ?>});
             var marker = new google.maps.Marker({
                 position: point,
                 map: map
             });
+            
+            var content = '<div id="content">'+
+                '<a href="library.php?id=<?php echo $lib["id"] ?>"><div class="headline-text"><?php echo $lib["name"] ?></div></a>'+
+                '<div id="bodyContent">'+
+                '<p style="text-align: justify">'+'<?php echo $lib["description"] ?>'+'</p>'+
+                '<span>Ώρες λειτουργίας: <?php echo substr($lib["open"], 0, 5) ?> - <?php echo substr($lib["close"], 0, 5) ?></span>'+
+                '<span class="pull-right">Διεύθυνση: <?php echo $lib["address"] ?></span>'+
+                '</div>'+
+                '</div>';
+
+            var infowindow = new google.maps.InfoWindow();
+
+            google.maps.event.addListener(marker, 'mouseover', (function(marker,content,infowindow){ 
+                return function() {
+                    infowindow.setContent(content);
+                    infowindow.open(map,marker);
+                };
+            })(marker,content,infowindow));
+
             markerBounds.extend(point);
             <?php } ?>
             map.fitBounds(markerBounds);
