@@ -82,7 +82,7 @@
                     <td class="medium-text"><?php echo '<a href="book.php?isbn=' . $isbn . '">' . $title . '</a>'; ?></td>
                     <td class="medium-text"><?php echo $start_date ?></td>
                     <td class="medium-text"><?php echo $end_date ?></td>
-                    <td><button id="1" type="button" class="btn btn-success" onclick="extendBook()">Επέκταση</button></td>
+                    <td><button id="1" type="button" class="btn btn-success" data-toggle="modal" data-target="#extendModal">Επέκταση</button></td>
                 </tr>
                 <?php } ?>                
             </table>    
@@ -90,59 +90,51 @@
         <!-- Δανεισμένα Βιβλία Tab end -->
     </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-<script>
-    function extendBook() {
-        $('#extendDialog').dialog({
-        	dialogClass: "blue-title-bar",
-            modal: true,
-            height: "auto",
-            width: "40%",
-            resizable: false
+    <script>
+        $(function() {
+            var from = new Date();
+            var to = new Date(from.getTime() + 7 * 24 * 60 * 60 * 1000);
+
+            $('#cal').datepicker({
+                minDate: from,
+                maxDate: to
+            })
         });
-    }
-	$(function() {
-        var from = new Date();
-        var to = new Date(from.getTime() + 7 * 24 * 60 * 60 * 1000);
+        function closeModal() {
+            $('#extendModal').modal('hide');
+        }
+    </script>
 
-		$('#cal').datepicker({
-            minDate: from,
-            maxDate: to
-		})
-  	});
-  	function closeDialog() {
-        $('#extendDialog').dialog('close');
-  	}
-</script>
+    <div class="modal fade" id="extendModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header confirm-align-background-color" align="center">
+                <b>Παράταση Δανεισμού Βιβλίου</b>
+            </div>
+            <div class="modal-body">
+                <p align="center">Η υπηρεσία παράτασης δανεισμού βιβλίου σας δίνει την δυνατότητα να επιστρέψετε το
+                    βιβλίο με 7 μέρες καθυστέρηση και μπορεί να χρησιμοποιηθεί μία φορά για κάθε βιβλίο.
+                </p>
+                <br><br>
+                <table class = "table alignCells-borderless-top">
+                    <tr>
+                        <td><b><u>Ημερομηνία Επιστροφής Βιβλίου</u></b>
+                        </td><td><b><u>Νέα Ημερομηνία Επιστροφής Βιβλίου</u></b></td>
+                    </tr>
+                    <tr>
+                        <td>02/04/2016</td>
+                        <td><input type="text" id="cal" class="margin-right" tabindex="-1"><img src="resources/calendar.png"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="margin-top-bott" align="center">
+                <button id = "ok" class = "confirm-size-margin-bott margin-right-butt" onclick="closeModal()">Οκ</button>
+                <button id = "cancel" class = "confirm-size-margin-bott margin-left-butt" onclick="closeModal()">Άκυρο</button> 
+            </div>
+          </div>
+        </div>
+    </div>
 
-<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-<script>
-
-</script>
-
-<div hidden id="extendDialog" title="Παράταση Δανεισμού Βιβλίου" class = "confirm-align" align="right">
-	<p align="center" style="margin-top: 5px">Η υπηρεσία παράτασης δανεισμού βιβλίου σας δίνει την δυνατότητα να επιστρέψετε το
-	βιβλίο με 7 μέρες καθυστέρηση και μπορεί να χρησιμοποιηθεί μία φορά για κάθε βιβλίο.</p>
-	<br>
-	<br>
-	<div>
-		<table class = "table alignCells-borderless-top">
-			<tr>
-				<td><b><u>Ημερομηνία Επιστροφής Βιβλίου</u></b>
-				</td><td><b><u>Νέα Ημερομηνία Επιστροφής Βιβλίου</u></b></td>
-			</tr>
-			<tr>
-				<td>02/04/2016</td>
-				<td><input type="text" id="cal" class="margin-right" tabindex="-1"><img src="resources/calendar.png"></td>
-			</tr>
-		</table>
-	</div>
-	<div class = "margin-top text-center">
-		<button id = "ok" class = "confirm-size-margin-bott margin-right-butt" onclick="closeDialog()">Οκ</button>
-		<button id = "cancel" class = "confirm-size-margin-bott margin-left-butt" onclick="closeDialog()">Άκυρο</button>
-	</div>
-</div>
 <?php
     $stmt->close();
     $db->close();
