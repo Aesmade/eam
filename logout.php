@@ -16,5 +16,5 @@
     }
 
     session_destroy();
-    header('Location: ' . htmlspecialchars($redirect_url));
+    header('Location: ' . $redirect_url);
 ?>

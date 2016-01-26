@@ -27,6 +27,6 @@
     }
 
     // Redirect to the home page.
-    header('Location: ' . htmlspecialchars($_SESSION['redirect_url']));
+    header('Location: ' . $_SESSION['redirect_url']);
     exit();
 ?>
