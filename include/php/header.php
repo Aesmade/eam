@@ -74,19 +74,17 @@
     <div class="body-content">
         <div class="container">
             <!-- Header start -->
-            <div id="logo-div" class="container-fluid">
-                <div class="row" style="height: 65px;">
-                    <div class="col-sm-10">
-                        <div style="padding: 10px 15px;">
-                        Βιβλιοθήκες και Υπηρεσίες Πληροφόρησης<br>
-                        Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών
-                        </div>
+            <div id="logo-div" class="container-fluid" style="height: 65px;">
+                <div class="col-sm-10">
+                    <div style="padding: 10px 15px;">
+                    Βιβλιοθήκες και Υπηρεσίες Πληροφόρησης<br>
+                    Εθνικό και Καποδιστριακό Πανεπιστήμιο Αθηνών
                     </div>
-                    <div class="col-sm-2 flex-container vertical-align" style="height: 100%;">
-                        <div style="padding: 10px 15px;">
-                            <a href=""><img src="resources/en.jpg" class="pull-right" style="padding: 0 5px;"></a>
-                            <a href=""><img src="resources/gr.png" class="pull-right" style="padding: 0 5px;"></a>
-                        </div>
+                </div>
+                <div class="col-sm-2 flex-container vertical-align" style="height: 100%;">
+                    <div style="padding: 10px 15px;">
+                        <a href=""><img src="resources/en.jpg" class="pull-right" style="padding: 0 5px;"></a>
+                        <a href=""><img src="resources/gr.png" class="pull-right" style="padding: 0 5px;"></a>
                     </div>
                 </div>
             </div>
