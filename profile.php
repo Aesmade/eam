@@ -10,6 +10,14 @@
     include 'include/php/db_connect.php';
     include 'include/php/helpers.php';
 
+    if (isset($_POST['extension'])) {
+        $query = 'UPDATE `eam`.`Book_Loans` SET `Book_Loans`.end_date = ? WHERE `Book_Loans`.book_isbn = ?';
+        $stmt = $db->prepare($query);
+        $stmt->bind_param('ss', $_POST['returnDate'], $_POST['bookIsbn']);
+        $stmt->execute();
+        $stmt->close();
+    }
+                    
     $query = 'SELECT `Book`.isbn, `Book`.title, `Book_Loans`.start_date, `Book_Loans`.end_date FROM `Book`, `Book_Loans`
         WHERE `Book_Loans`.user_id = ? and `Book_Loans`.book_isbn = `Book`.isbn';
     $stmt = $db->prepare($query);
@@ -22,6 +30,7 @@
     $styles = array('%OTHER_STYLESHEET_1%' => 'rel="stylesheet" href="styles/profile.css"',
                     '%OTHER_STYLESHEET_2%' => 'rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"');
     echo replace_contents('include/php/header.php', $styles);
+    
 ?>
     <div class="container">
         <ol class="breadcrumb">
@@ -57,17 +66,19 @@
             <hr class="hr"> 
         </div>
         <!-- Δανεισμένα Βιβλία Tab start -->
-        <div align="right">
-            <select  class="align-size-dropdown">
-                <option value="" disabled selected>Κριτήριο Αναζήτησης</option>
-                <option value="author">Συγγραφέας</option>
-                <option value="title">Τίτλος Βιβλίου</option>
-            </select>
-            <input type="text" class="form" placeholder="Αναζήτηση...">
-            <input type="image" align="center" src="resources/search.png">
+        <div id="search-div" class="pull-right">
+            <form action="" class="form-inline">
+                <div class="form-group">
+                    <label for="search-dropdown">Αναζήτηση με</label>
+                    <select name="search-type" id="search-dropdown" class="form-control">
+                        <option value="title">Τίτλο</option>
+                        <option value="contents">Περιεχόμενο</option>
+                        <option value="author">Συγγραφέα</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
+            </form>  
         </div>
-        
-
         <div style="margin-top: 15px">
             <table class="table alignCells-borderless-top">
                 <tr class="bottom-border">
@@ -82,7 +93,8 @@
                     <td class="medium-text"><?php echo '<a href="book.php?isbn=' . $isbn . '">' . $title . '</a>'; ?></td>
                     <td class="medium-text"><?php echo $start_date ?></td>
                     <td class="medium-text"><?php echo $end_date ?></td>
-                    <td><button id="1" type="button" class="btn btn-success" data-toggle="modal" data-target="#extendModal">Επέκταση</button></td>
+                    <td><button type="button" class="open-extendModal btn btn-success" data-toggle="modal" data-target="#extendModal"
+                        data-isbn=<?php echo $isbn?> data-returndate=<?php echo $end_date ?>>Επέκταση</button></td>
                 </tr>
                 <?php } ?>                
             </table>    
@@ -90,18 +102,37 @@
         <!-- Δανεισμένα Βιβλία Tab end -->
     </div>
 
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
-        $(function() {
-            var from = new Date();
-            var to = new Date(from.getTime() + 7 * 24 * 60 * 60 * 1000);
-
+        $(document).on("click", ".open-extendModal", function () {
+            var from = new Date(toDate($(this).data('returndate')).getTime() + 24 * 60 * 60 * 1000);
+            var to = new Date(from.getTime() + 6 * 24 * 60 * 60 * 1000);
+ 
+            $('#cal').datepicker('destroy');
             $('#cal').datepicker({
+                dateFormat: "yy-mm-dd",
                 minDate: from,
                 maxDate: to
-            })
+            });
+
+            $('.return-date').text($(this).data('returndate'));
+            $('#book-submit').val($(this).data('isbn'));
         });
+ 
         function closeModal() {
             $('#extendModal').modal('hide');
+        }
+        
+        function closeModalAndPost() {
+            var newDate = $( "#cal" ).datepicker().val();
+            $('#return-date-submit').val(newDate);
+            $('#extension-submit').submit();
+
+        }
+
+        function toDate(dateStr) {
+            var parts = dateStr.split("-");
+            return new Date(parts[0], parts[1] - 1, parts[2]);
         }
     </script>
 
@@ -122,14 +153,19 @@
                         </td><td><b><u>Νέα Ημερομηνία Επιστροφής Βιβλίου</u></b></td>
                     </tr>
                     <tr>
-                        <td>02/04/2016</td>
+                        <td class="return-date"></td>
                         <td><input type="text" id="cal" class="margin-right" tabindex="-1"><img src="resources/calendar.png"></td>
                     </tr>
                 </table>
             </div>
-            <div class="margin-top-bott" align="center">
-                <button id = "ok" class = "confirm-size-margin-bott margin-right-butt" onclick="closeModal()">Οκ</button>
-                <button id = "cancel" class = "confirm-size-margin-bott margin-left-butt" onclick="closeModal()">Άκυρο</button> 
+            <div align="center">
+                <form id="extension-submit" action="profile.php" class="form-inline" method="post">
+                    <input id="return-date-submit" type="hidden" name="returnDate" value="" />
+                    <input id="book-submit" type="hidden" name="bookIsbn" value="" />
+                    <input type="hidden" name="extension" value="extension" />
+                </form>
+                <button id="ok" class="btn btn-success button-margin" onclick="closeModalAndPost()">Επιβεβαίωση</button>
+                <button id="cancel" class="btn btn-danger button-margin" onclick="closeModal()">Ακύρωση</button>
             </div>
           </div>
         </div>
