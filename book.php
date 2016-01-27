@@ -1,4 +1,5 @@
 <?php
+
     include 'include/php/db_connect.php';
     include 'include/php/helpers.php';
 
@@ -84,13 +85,14 @@
             $available = $lib_books[2] - $loaned;
             array_push($lib_books, $available);
         }
-        $stmt->close;
+        $stmt->close();
     }
 
     $db->close();
 
     // include header.php and library.css
-    $styles = array("%OTHER_STYLESHEET_1%" => "rel=\"stylesheet\" href=\"styles/book.css\"");
+    $styles = array('%OTHER_STYLESHEET_1%' => 'rel="stylesheet" href="styles/book.css"',
+                    '%OTHER_STYLESHEET_2%' => 'rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"');
     echo replace_contents('include/php/header.php', $styles);
 ?>
     <div class="container">
@@ -165,13 +167,17 @@
 ?>
                         <div class="row multiple-rows vertical-align-items">
                             <div class="col-sm-6"><a href="library.php?id=<?php echo $lib_books[0]?>"><?php echo $lib_books[1]?></a></div>
-                            <div class="col-sm-3">Διαθέσιμα <?php echo $lib_books[3]?> από <?php echo $lib_books[2]?></div>
-                            <div class="col-sm-3"><button class="btn <?php
+                            <div class="col-sm-3">Διαθέσιμ<?php echo $lib_books[3] == 1 ? "ο" : "α" ?> <?php echo $lib_books[3]?> από <?php echo $lib_books[2]?></div>
+                            <div class="col-sm-3">
+                            <?php if ($lib_books[3] > 0) { ?>
+                            <button type="button" data-isbn="<?php echo $book['isbn']?>" data-library="<?php echo $lib_books[0]?>" data-toggle="modal" data-target="#borrowModal"
+                                 class="open-borrowModal btn <?php
                             if (!isset($_SESSION['user']))
                                 echo 'btn-default disabled danger-tooltip" data-toggle="tooltip" title="Συνδεθείτε ώστε να ενεργοποιηθεί η δυνατότητα δανεισμού!"';
                             else
                                 echo 'btn-primary"';
-                            ?>>Δανεισμός</button></div>
+                            ?>>Δανεισμός</button>
+                            <?php } ?></div>
                         </div>
 <?php
     }
@@ -191,11 +197,11 @@
         </div>
     </div>
 
-    <!-- .modal -->
+    <!-- .modal for suggestion -->
     <div class="modal fade" tabindex="-1" role="dialog" id="suggest-dlg">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header confirm-align">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">Προτείνετε το βιβλίο</h4>
                 </div>
@@ -219,15 +225,16 @@
                         </div>
                         <div id="suggest-alert" role="alert" class="alert alert-danger" style="display: none">Συμπληρώστε τα παραπάνω πεδία!</div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Κλείσιμο</button>
-                        <button type="button" class="btn btn-primary" id="suggest-submit">Αποστολή</button>
+                    <div id="suggest-footer" align="center">
+                        <button type="button" class="btn btn-success" id="suggest-submit">Αποστολή</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Κλείσιμο</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-    <!-- /.modal -->
+    <!-- /.modal for suggestion -->
+
     <script>
         $(function() {
             var emailPattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
@@ -276,6 +283,74 @@
         $('[data-toggle="tooltip"]').tooltip();
         });
     </script>
+
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script>
+        $(document).on("click", ".open-borrowModal", function () {
+            $('#cal').datepicker({
+                minDate: new Date(),
+                dateFormat: "dd/mm/yy"
+            });
+
+            $('#borrowLibrary').val($(this).data('library'));
+            $('#book-submit').val($(this).data('isbn'));
+        });
+ 
+        function closeModal() {
+            $('#borrowModal').modal('hide');
+        }
+        
+        function closeModalAndPost() {
+            var newDate = $( "#cal" ).datepicker({ dateFormat: 'dd/mm/yy' }).val();
+            $('#return-date-submit').val(newDate);
+            $('#extension-submit').submit();
+
+        }
+
+        function toDate(dateStr) {
+            var parts = dateStr.split("-");
+            return new Date(parts[0], parts[1] - 1, parts[2]);
+        }
+    </script>-
+
+    <!-- .modal for borrowing -->
+    <div class="modal fade" id="borrowModal" role="dialog">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header confirm-align" align="center">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <b>Παράταση Δανεισμού Βιβλίου</b>
+            </div>
+            <div class="modal-body">
+                <p align="center">Η υπηρεσία παράτασης δανεισμού βιβλίου σας δίνει την δυνατότητα να επιστρέψετε το
+                    βιβλίο με 7 μέρες καθυστέρηση και μπορεί να χρησιμοποιηθεί μία φορά για κάθε βιβλίο.
+                </p>
+                <br><br>
+                <table class="table alignCells-borderless-top">
+                    <tr>
+                        <td><b><u>Ημερομηνία Επιστροφής Βιβλίου</u></b>
+                        </td><td><b><u>Νέα Ημερομηνία Επιστροφής Βιβλίου</u></b></td>
+                    </tr>
+                    <tr>
+                        <td class="return-date"></td>
+                        <td><input type="text" id="cal" class="margin-right" tabindex="-1"><img src="resources/calendar.png"></td>
+                    </tr>
+                </table>
+            </div>
+            <div align="center">
+                <form id="extension-submit" action="profile.php" class="form-inline" method="post">
+                    <input id="return-date-submit" type="hidden" name="returnDate" value="" />
+                    <input id="book-submit" type="hidden" name="bookIsbn" value="" />
+                    <input type="hidden" id="borrowLibrary" name="library" />
+                </form>
+                <button id="ok" class="btn btn-success button-margin" onclick="closeModalAndPost()">Επιβεβαίωση</button>
+                <button id="cancel" class="btn btn-danger button-margin" onclick="closeModal()">Ακύρωση</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!-- /.modal for borrowing -->
+
 <?php
     include 'include/php/footer.php';
 ?>

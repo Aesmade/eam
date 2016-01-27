@@ -33,7 +33,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <?php
-    if (isset($_SESSION['user']) and $_SESSION['first_time']) {
+    if (isset($_SESSION['user']) and isset($_SESSION['first_time']) and $_SESSION['first_time']) {
 ?>
     <script>
     $(document).ready(function(){
