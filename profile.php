@@ -11,7 +11,7 @@
     include 'include/php/helpers.php';
 
     if (isset($_POST['extension'])) {
-        $query = 'UPDATE `eam`.`Book_Loans` SET `Book_Loans`.end_date = ? WHERE `Book_Loans`.book_isbn = ?';
+        $query = 'UPDATE `Book_Loans` SET `Book_Loans`.end_date = ? WHERE `Book_Loans`.book_isbn = ?';
         $stmt = $db->prepare($query);
         $todate = date_parse_from_format("d/m/Y", $_POST['returnDate']);
         $todatestr = $todate['year'] . "-" . $todate['month'] . "-" . $todate['day'];
@@ -131,9 +131,8 @@
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
         $(document).on("click", ".open-extendModal", function () {
-            var from = new Date($(this).data('returndate'));
-            console.log(from);
-            var to = new Date();
+            var from = new Date($(this).data('returndate-f'));
+            var to = new Date(from);
             to.setDate(from.getDate() + 7);
  
             $('#cal').datepicker('destroy');
