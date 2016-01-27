@@ -76,6 +76,10 @@
                         <option value="author">Συγγραφέα</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="search-terms">για</label>
+                    <input type="text" style="width: 250px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                </div>
                 <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
             </form>  
         </div>
@@ -124,10 +128,13 @@
         }
         
         function closeModalAndPost() {
-            var newDate = $( "#cal" ).datepicker().val();
-            $('#return-date-submit').val(newDate);
-            $('#extension-submit').submit();
-
+            var newDate = $('#cal').datepicker().val();
+            if (newDate != "") {
+                $('#return-date-submit').val(newDate);
+                $('#extension-submit').submit();
+            } else {
+                alert('Παρακαλώ επιλέξτε ημερομηνία παράτασης');
+            }
         }
 
         function toDate(dateStr) {
