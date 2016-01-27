@@ -134,7 +134,7 @@
             var from = new Date($(this).data('returndate'));
             console.log(from);
             var to = new Date();
-            to.setDate(from + 120);
+            to.setDate(from.getDate() + 7);
  
             $('#cal').datepicker('destroy');
             $('#cal').datepicker({
@@ -159,11 +159,6 @@
             } else {
                 alert('Παρακαλώ επιλέξτε ημερομηνία παράτασης');
             }
-        }
-
-        function toDate(dateStr) {
-            var parts = dateStr.split("-");
-            return new Date(parts[0], parts[1] - 1, parts[2]);
         }
     </script>
 
