@@ -131,7 +131,7 @@
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
         $(document).on("click", ".open-extendModal", function () {
-            var from = new Date($(this).data('returndate-f'));
+            var from = new Date($(this).data('returndate'));
             var to = new Date(from);
             to.setDate(from.getDate() + 7);
  

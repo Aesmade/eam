@@ -288,7 +288,7 @@
     <script>
         $(document).on("click", ".open-borrowModal", function () {
             var from = new Date();
-            var to = new Date();
+            var to = new Date(from);
             to.setDate(from.getDate() + 30);
 
             $('#cal').datepicker({
