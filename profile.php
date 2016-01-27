@@ -13,7 +13,17 @@
     if (isset($_POST['extension'])) {
         $query = 'UPDATE `eam`.`Book_Loans` SET `Book_Loans`.end_date = ? WHERE `Book_Loans`.book_isbn = ?';
         $stmt = $db->prepare($query);
-        $stmt->bind_param('ss', $_POST['returnDate'], $_POST['bookIsbn']);
+        $todate = date_parse_from_format("d/m/Y", $_POST['returnDate']);
+        $todatestr = $todate['year'] . "-" . $todate['month'] . "-" . $todate['day'];
+        $stmt->bind_param('ss', $todatestr, $_POST['bookIsbn']);
+        $stmt->execute();
+        $stmt->close();
+    } else if (isset($_POST['returnDate']) && isset($_POST['bookIsbn']) && isset($_POST['library']) && isset($_SESSION['user'])) {
+        $query = "INSERT INTO `Book_Loans`(user_id, book_isbn, library_id, start_date, end_date) VALUES(?,?,?,?,?)";
+        $stmt = $db->prepare($query);
+        $todate = date_parse_from_format("d/m/Y", $_POST['returnDate']);
+        $todatestr = $todate['year'] . "-" . $todate['month'] . "-" . $todate['day'];
+        $stmt->bind_param('isiss', $_SESSION['user'], $_POST['bookIsbn'], $_POST['library'], date('Y-m-d'), $todatestr);
         $stmt->execute();
         $stmt->close();
     }
@@ -95,10 +105,22 @@
                 <?php while ($stmt->fetch()) { ?>
                 <tr>
                     <td class="medium-text"><?php echo '<a href="book.php?isbn=' . $isbn . '">' . $title . '</a>'; ?></td>
-                    <td class="medium-text"><?php echo $start_date ?></td>
-                    <td class="medium-text"><?php echo $end_date ?></td>
+                    <td class="medium-text"><?php
+                        $startdate_a = date_parse_from_format("Y-m-d", $start_date);
+                        $startdate_s = $startdate_a['day'] . "/" . $startdate_a['month'] . "/" . $startdate_a['year'];
+                        echo $startdate_s;
+                    ?></td>
+                    <td class="medium-text"><?php
+                        $enddate_a = date_parse_from_format("Y-m-d", $end_date);
+                        $enddate_s = $enddate_a['day'] . "/" . $enddate_a['month'] . "/" . $enddate_a['year'];
+                        echo $enddate_s;
+                    ?></td>
                     <td><button type="button" class="open-extendModal btn btn-success" data-toggle="modal" data-target="#extendModal"
-                        data-isbn=<?php echo $isbn?> data-returndate=<?php echo $end_date ?>>Επέκταση</button></td>
+                        data-isbn="<?php echo $isbn ?>" data-returndate="<?php echo $end_date ?>" data-returndate-f="<?php
+                        $enddate_a = date_parse_from_format("Y-m-d", $end_date);
+                        $enddate_s = $enddate_a['day'] . "/" . $enddate_a['month'] . "/" . $enddate_a['year'];
+                        echo $enddate_s;
+                        ?>">Επέκταση</button></td>
                 </tr>
                 <?php } ?>                
             </table>    
@@ -109,17 +131,19 @@
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
         $(document).on("click", ".open-extendModal", function () {
-            var from = new Date(toDate($(this).data('returndate')).getTime() + 24 * 60 * 60 * 1000);
-            var to = new Date(from.getTime() + 6 * 24 * 60 * 60 * 1000);
+            var from = new Date($(this).data('returndate'));
+            console.log(from);
+            var to = new Date();
+            to.setDate(from + 120);
  
             $('#cal').datepicker('destroy');
             $('#cal').datepicker({
-                dateFormat: "yy-mm-dd",
+                dateFormat: "dd/mm/yy",
                 minDate: from,
                 maxDate: to
             });
 
-            $('.return-date').text($(this).data('returndate'));
+            $('.return-date').text($(this).data('returndate-f'));
             $('#book-submit').val($(this).data('isbn'));
         });
  
