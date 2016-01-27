@@ -11,7 +11,7 @@
     include 'include/php/helpers.php';
 
     if (isset($_POST['extension'])) {
-        $query = 'UPDATE `eam`.`Book_Loans` SET `Book_Loans`.end_date = ? WHERE `Book_Loans`.book_isbn = ?';
+        $query = 'UPDATE `Book_Loans` SET `Book_Loans`.end_date = ? WHERE `Book_Loans`.book_isbn = ?';
         $stmt = $db->prepare($query);
         $todate = date_parse_from_format("d/m/Y", $_POST['returnDate']);
         $todatestr = $todate['year'] . "-" . $todate['month'] . "-" . $todate['day'];

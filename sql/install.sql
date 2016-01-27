@@ -3,8 +3,8 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 24, 2016 at 09:26 PM
--- Server version: 5.6.27-0ubuntu0.15.04.1
+-- Generation Time: Jan 28, 2016 at 12:01 AM
+-- Server version: 5.6.28-0ubuntu0.15.04.1
 -- PHP Version: 5.6.4-4ubuntu6.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -173,15 +173,17 @@ CREATE TABLE IF NOT EXISTS `Book_Loans` (
   `library_id` int(11) NOT NULL,
   `start_date` date NOT NULL,
   `end_date` date NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Book_Loans`
 --
 
 INSERT INTO `Book_Loans` (`id`, `user_id`, `book_isbn`, `library_id`, `start_date`, `end_date`) VALUES
-(1, 1, '123-77712832', 1, '2016-01-12', '2016-05-12'),
-(2, 1, '013937681X', 1, '2016-01-25', '2016-02-10');
+(1, 1, '123-77712832', 1, '2016-01-12', '2016-02-12'),
+(2, 1, '013937681X', 1, '2016-01-25', '2016-01-26'),
+(6, 1, '0544668251', 1, '2016-01-27', '2016-02-05'),
+(7, 1, '013937681X', 1, '2016-01-27', '2016-02-11');
 
 -- --------------------------------------------------------
 
@@ -230,8 +232,8 @@ CREATE TABLE IF NOT EXISTS `Library` (
 --
 
 INSERT INTO `Library` (`id`, `name`, `description`, `address`, `latitude`, `longitude`, `telephone`, `email`, `opening_time`, `closing_time`, `img`) VALUES
-(1, 'Βιβλιοθήκη Θετικών Επιστημών', 'Η Συλλογή καλύπτει στο μεγαλύτερο μέρος της τις εξής θεματικές κατηγορίες: Βιολογία, Γεωλογία και Γεωπεριβάλλον, Μαθηματικά, Πληροφορική και Τηλεπικοινωνίες, Φαρμακευτική, Φυσική και Χημεία.\r\n\r\n', 'Πανεπιστημιούπολη, Ιλίσσια', 37.967259, 23.781945, ' 210-726545', 'thet@lib.uoa.gr', '09:00:00', '21:00:00', 'http://www.getbusy.gr/Content/ContentFiles/02_vivlio.jpg'),
-(2, 'Βιβλιοθήκη Οικονομικών Επιστημών', 'Η συλλογή περιλαμβάνει 22000 τίτλους βιβλίων που χρονολογούνται από τις αρχές του 20 αιώνα έως σήμερα. Διαθέτει 170 τίτλους περιοδικών, 22 από τους οποίους αποτελούν τρέχουσες συνδρομές.  Επίσης διατίθεται  μεγάλος αριθμός τίτλων στις βάσεις των Ηλεκτρονικών  Περιοδικών του Πανεπιστημίου Αθηνών. ', 'Ναυαρίνου 13Α', 37.983522, 23.735471, '210-7834723', 'economy@lib.uoa.gr', '09:00:00', '18:00:00', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Melk_-_Abbey_-_Library.jpg/1280px-Melk_-_Abbey_-_Library.jpg'),
+(1, 'Βιβλιοθήκη Θετικών Επιστημών', 'Η Συλλογή καλύπτει στο μεγαλύτερο μέρος της τις εξής θεματικές κατηγορίες: Βιολογία, Γεωλογία και Γεωπεριβάλλον, Μαθηματικά, Πληροφορική και Τηλεπικοινωνίες, Φαρμακευτική, Φυσική και Χημεία.', 'Πανεπιστημιούπολη, Ιλίσσια', 37.967259, 23.781945, ' 210-726545', 'thet@lib.uoa.gr', '09:00:00', '21:00:00', 'http://www.getbusy.gr/Content/ContentFiles/02_vivlio.jpg'),
+(2, 'Βιβλιοθήκη Οικονομικών Επιστημών', 'Η συλλογή περιλαμβάνει 22000 τίτλους βιβλίων που χρονολογούνται από τις αρχές του 20 αιώνα έως σήμερα. Διαθέτει 170 τίτλους περιοδικών, 22 από τους οποίους αποτελούν τρέχουσες συνδρομές.  Επίσης διατίθεται  μεγάλος αριθμός τίτλων στις βάσεις των Ηλεκτρονικών  Περιοδικών του Πανεπιστημίου Αθηνών.', 'Ναυαρίνου 13Α', 37.983522, 23.735471, '210-7834723', 'economy@lib.uoa.gr', '09:00:00', '18:00:00', 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Melk_-_Abbey_-_Library.jpg/1280px-Melk_-_Abbey_-_Library.jpg'),
 (3, 'Βιβλιοθήκη Θεολογικής Σχολής', 'Η συλλογή της Βιβλιοθήκης καλύπτει τους παρακάτω τομείς: Θεολογία, Θρησκειολογία, Εκκλησιαστικη Ιστορία, Ιστορία Ελλάδος, Ιεραποστολική, Ποιμαντική, Κατηχητική, Κανονικό Δίκαιο, Φιλοσοφία, Δογματική, Χριστιανική Κοινωνιολογία, Παλαιογραφία, Φιλοσοφία, Ψυχολογία, Χριστιανική Αρχαιολογία.', 'Πανεπιστημιούπολη, Ιλίσσια', 37.968994, 23.776117, '210-5623132', 'theology@lib.uoa.gr', '08:00:00', '16:00:00', 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Bibl._Malatestiana_3.jpg/800px-Bibl._Malatestiana_3.jpg');
 
 -- --------------------------------------------------------
@@ -246,7 +248,7 @@ CREATE TABLE IF NOT EXISTS `User` (
   `last_name` varchar(30) CHARACTER SET utf8 NOT NULL,
   `email` varchar(256) CHARACTER SET utf8 NOT NULL,
   `password` varchar(32) CHARACTER SET utf8 NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `User`
@@ -327,7 +329,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 -- AUTO_INCREMENT for table `Book_Loans`
 --
 ALTER TABLE `Book_Loans`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `Category`
 --
