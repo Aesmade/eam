@@ -132,8 +132,7 @@
     <script>
         $(document).on("click", ".open-extendModal", function () {
             var from = new Date($(this).data('returndate'));
-            console.log(from);
-            var to = new Date();
+            var to = new Date(from);
             to.setDate(from.getDate() + 7);
  
             $('#cal').datepicker('destroy');
