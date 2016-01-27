@@ -287,8 +287,13 @@
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
         $(document).on("click", ".open-borrowModal", function () {
+            var from = new Date();
+            var to = new Date();
+            to.setDate(from.getDate() + 30);
+
             $('#cal').datepicker({
-                minDate: new Date(),
+                minDate: from,
+                maxDate: to,
                 dateFormat: "dd/mm/yy"
             });
 
@@ -301,15 +306,13 @@
         }
         
         function closeModalAndPost() {
-            var newDate = $( "#cal" ).datepicker({ dateFormat: 'dd/mm/yy' }).val();
-            $('#return-date-submit').val(newDate);
-            $('#extension-submit').submit();
-
-        }
-
-        function toDate(dateStr) {
-            var parts = dateStr.split("-");
-            return new Date(parts[0], parts[1] - 1, parts[2]);
+            var newDate = $('#cal').datepicker().val();
+            if (newDate != "") {
+                $('#return-date-submit').val(newDate);
+                $('#extension-submit').submit();
+            } else {
+                alert('Παρακαλώ επιλέξτε ημερομηνία παράτασης');
+            }
         }
     </script>-
 
@@ -319,20 +322,19 @@
           <div class="modal-content">
             <div class="modal-header confirm-align" align="center">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <b>Παράταση Δανεισμού Βιβλίου</b>
+                <b>Δανεισμός Βιβλίου</b>
             </div>
             <div class="modal-body">
-                <p align="center">Η υπηρεσία παράτασης δανεισμού βιβλίου σας δίνει την δυνατότητα να επιστρέψετε το
-                    βιβλίο με 7 μέρες καθυστέρηση και μπορεί να χρησιμοποιηθεί μία φορά για κάθε βιβλίο.
+                <p align="center">Η υπηρεσία δανεισμού βιβλίου σας δίνει την δυνατότητα να δανειστείτε
+                ένα βιβλίο ηλεκτρονικά, για ένα διάστημα το πολύ 30 ημερών, και να το παραλάβεται από την
+                αντίστοιχη βιβλιοθήκη.
                 </p>
                 <br><br>
                 <table class="table alignCells-borderless-top">
                     <tr>
                         <td><b><u>Ημερομηνία Επιστροφής Βιβλίου</u></b>
-                        </td><td><b><u>Νέα Ημερομηνία Επιστροφής Βιβλίου</u></b></td>
                     </tr>
                     <tr>
-                        <td class="return-date"></td>
                         <td><input type="text" id="cal" class="margin-right" tabindex="-1"><img src="resources/calendar.png"></td>
                     </tr>
                 </table>

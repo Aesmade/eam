@@ -86,6 +86,10 @@
                         <option value="author">Συγγραφέα</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="search-terms">για</label>
+                    <input type="text" style="width: 250px" placeholder="Όροι αναζήτησης" name="search-terms" id="search-terms" class="form-control" />
+                </div>
                 <button type="submit" class="btn btn-primary pull-right"><span class="glyphicon glyphicon-search"></span> Αναζήτηση</button>
             </form>  
         </div>
@@ -130,7 +134,7 @@
             var from = new Date($(this).data('returndate'));
             console.log(from);
             var to = new Date();
-            to.setDate(from + 120);
+            to.setDate(from.getDate() + 7);
  
             $('#cal').datepicker('destroy');
             $('#cal').datepicker({
@@ -148,15 +152,13 @@
         }
         
         function closeModalAndPost() {
-            var newDate = $( "#cal" ).datepicker().val();
-            $('#return-date-submit').val(newDate);
-            $('#extension-submit').submit();
-
-        }
-
-        function toDate(dateStr) {
-            var parts = dateStr.split("-");
-            return new Date(parts[0], parts[1] - 1, parts[2]);
+            var newDate = $('#cal').datepicker().val();
+            if (newDate != "") {
+                $('#return-date-submit').val(newDate);
+                $('#extension-submit').submit();
+            } else {
+                alert('Παρακαλώ επιλέξτε ημερομηνία παράτασης');
+            }
         }
     </script>
 
