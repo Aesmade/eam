@@ -28,9 +28,6 @@
                 zoom: 8
             });
             
-            
-
-
             <?php foreach($libs as $lib) { ?>
             point = new google.maps.LatLng({lat: <?php echo $lib['lat'] ?>, lng: <?php echo $lib['lon'] ?>});
             var marker = new google.maps.Marker({
