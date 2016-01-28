@@ -163,7 +163,7 @@
                     <div class="box">
                     <div class="box-header">Διαθεσιμότητα</div>
 <?php
-    foreach ($book['quantities'] as $lib_books) {
+    foreach ($book['quantities'] as &$lib_books) {
 ?>
                         <div class="row multiple-rows vertical-align-items">
                             <div class="col-sm-6"><a href="library.php?id=<?php echo $lib_books[0]?>"><?php echo $lib_books[1]?></a></div>
